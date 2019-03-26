@@ -1,0 +1,109 @@
+\ProvidesPackage{anuragLatexArticleStyle}
+
+%%%% PACKAGES %%%%
+\usepackage{mathtools, graphicx, amsmath, amsthm, amsfonts, amssymb, breqn, accents, float, hyperref, listings, courier, lscape, multirow, longtable, caption}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[a4paper, total={6.5in, 10in}]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[american]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\usepackage[backend=biber,sorting=none]{biblatex}
+\lstset
+{
+    breaklines=true
+    basicstyle=\ttfamily
+}
+\hypersetup
+{
+    colorlinks=true,
+    allcolors=blue
+}
+% make heading of theorem bold
+\makeatletter
+\def\th@plain{%
+	\thm@notefont{}% same as heading font
+	\itshape % body font
+}
+\def\th@definition{%
+	\thm@notefont{}% same as heading font
+	\normalfont % body font
+}
+\makeatother
+
+\newcommand{\answer}[1]{\textcolor{ForestGreen}{#1}}
+\newcommand{\verify}[1]{\textcolor{red}{#1}}
+%%%% METRIC SPACE NOTATIONS %%%%
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+%%%% SCRIPT LETTERS %%%%
+\newcommand{\scrA}{\mathcal{A}}
+\newcommand{\scrB}{\mathcal{B}}
+\newcommand{\scrC}{\mathcal{C}}
+\newcommand{\scrD}{\mathcal{D}}
+\newcommand{\scrE}{\mathcal{E}}
+\newcommand{\scrF}{\mathcal{F}}
+\newcommand{\scrG}{\mathcal{G}}
+\newcommand{\scrH}{\mathcal{H}}
+\newcommand{\scrI}{\mathcal{I}}
+\newcommand{\scrJ}{\mathcal{J}}
+\newcommand{\scrK}{\mathcal{K}}
+\newcommand{\scrL}{\mathcal{L}}
+\newcommand{\scrM}{\mathcal{M}}
+\newcommand{\scrN}{\mathcal{N}}
+\newcommand{\scrO}{\mathcal{O}}
+\newcommand{\scrP}{\mathcal{P}}
+\newcommand{\scrQ}{\mathcal{Q}}
+\newcommand{\scrR}{\mathcal{R}}
+\newcommand{\scrS}{\mathcal{S}}
+\newcommand{\scrT}{\mathcal{T}}
+\newcommand{\scrU}{\mathcal{U}}
+\newcommand{\scrV}{\mathcal{V}}
+\newcommand{\scrW}{\mathcal{W}}
+\newcommand{\scrX}{\mathcal{X}}
+\newcommand{\scrY}{\mathcal{Y}}
+\newcommand{\scrZ}{\mathcal{Z}}
+
+%%%% MATHEMATICAL SYMBOLS %%%%
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Field}{\mathcal{F}}
+\newcommand{\Expectation}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\exponent}[1]{\mathrm{e}^{#1}}
+\newcommand{\vecOne}{\mathbbm{1}}
+\newcommand{\rnc}[1]
+{\MakeUppercase{\romannumeral #1}}
+
+%%%% OPERATORS %%%%
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\innerproduct}[2]{\left\langle #1, #2\right\rangle}
+\newcommand{\integral}[4]{\displaystyle\int_{#1}^{#2}#3\;\mathrm{d}#4}
+
+%%%% SIMPLIFYING COMMANDS %%%%
+\newcommand{\eqntext}[1]{{\textrm{(#1)}}\qquad}
+\newcommand{\der}[2][]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
+%\newcommand{\der}[1]{\frac{d}{d#1}}
+\newcommand{\pder}[2]{\frac{\partial #1}{\partial#2}}
+\newcommand{\pdder}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\titlecite}[1]{\citefield{#1}{title} \cite{#1}}
+
+%%%% THEOREMS, COROLLARY, PROPOSITIONS, LEMMA %%%% 
+\newtheorem{theorem}{Theorem}
+\numberwithin{theorem}{section}
+\newtheorem{corollary}{Corrolary}
+\numberwithin{corollary}{section}
+\newtheorem{proposition}{Proposition}
+\numberwithin{proposition}{section}
+\newtheorem{lemma}{Lemma}
+\numberwithin{lemma}{section}
+\newtheorem{definition}{Defintion}
+\numberwithin{definition}{section}
+
+%%%% STYLE CUSTOMIZATION %%%%
+\numberwithin{equation}{section}
+
+\author{Anurag\\anuragg.in@gmail.com\\www.anuragg.in}
+\date{\today}
