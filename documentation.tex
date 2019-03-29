@@ -128,7 +128,8 @@ message_t *message_tx() {
 }
 \end{verbatim}
 
-\noindent \textbf{Step 3}: Let the Kilobot collect the messages it hears from other neighbors. By comparing the its own current clock position to that of its neighbors (i.e. the first byte of the received message), a Kilobot can tell how much it is out of sync with its neighbors. Each time a new message arrives, the Kilobot will store the value of the adjustment to be made. Then, when the Kilobot completes its own time period and flashes, it will also make one big adjustment for next time's flash.
+\noindent \textbf{Step 3}: Let the Kilobot collect the messages it hears from other neighbors. 
+By comparing the its own current clock position to that of its neighbors (i.e. the first byte of the received message), a Kilobot can tell how much it is out of sync with its neighbors. Each time a new message arrives, the Kilobot will store the value of the adjustment to be made. Then, when the Kilobot completes its own time period and flashes, it will also make one big adjustment for next time's flash.
 
 \begin{verbatim}
 void message_rx(message_t *m, distance_measurement_t *d)
