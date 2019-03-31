@@ -35,22 +35,99 @@
 \newpage
 
 \chapter{Overview of Kilobots}
-\section{Introduction}
-Kilobots (Figure \ref{fig:kilobot}) are low cost, low power, tiny robots designed by Harvard University's Self Organizing Systems Research Lab with the aim of making testing collective algorithms accesible to researchers. It has following specifications:
+
+Kilobots are low cost robots designed at \textbf{Harvard University's Self-Organizing Systems Research Lab} \url{http://www.eecs.harvard.edu/ssr}. The robots are designed to make testing collective algorithms on hundreds or thousands of robots accessible to robotics researchers.\\
+
+Though the Kilobots are low-cost, they maintain abilities similar to other collective robots. These abilities include differential drive locomotion, on-board computation power, neighbor-to-neighbor communication, neighbor-to neighbor distance sensing, and ambient light sensing. Additionally they are designed to operate such that no robot requires any individual attention by a human operator. This makes controlling a group of Kilobots easy, whether there are 10 or 1000 in the group.
+ 
+\section{Specifications of Kilobot}
+Kilobots (Figure \ref{fig:kilobot}) are low cost, low power, tiny robots designed by Harvard University's Self Organizing Systems Research Lab with the aim of making testing collective algorithms accesible to researchers \cite{kilobotics_manual}. It has following specifications:
 \begin{itemize}
-	\item One IR transmitter-receiver pair
-	\item One ambient light sensor
-	\item Two vibrators to move robot using stick and slide mechanism
-	\item One onboard battery
-	\item One RGB LED
+\item \textbf{Processor}: ATmega 328p (8bit @ 8MHz)
+\item \textbf{Memory}: 
+\begin{itemize}
+\item 32 KB Flash -- used for both user program and bootloader 
+\item 1KB EEPROM -- for storing calibration values and other non-volatile data and 2KB SRAM
 \end{itemize}
+\item \textbf{Battery}: Rechargeable Li-Ion 3.7V, for a 3 months autonomy in
+sleep mode. Each Kilobot has a built-in charger circuit which charges the onboard battery when +6 volts is applied to any of the legs, and GND is applied to the charging tab. 
+\item \textbf{Charging}: Kilobot charger for 10 robots simultaneously
+\item \textbf{Communication}: Kilobots can communicate with neighbors up to 7 cm away by reflecting infrared (IR) light off the ground surface (Figure \ref{fig:comm}). 
+\item \textbf{Sensing}: one IR sensor and one light sensor 
+\begin{itemize}
+\item When receiving a message, distance to the transmitting
+Kilobot can be determined using received signal
+strength. The distance depends on the surface used as
+the light intensity is used to compute the value.
+\item The brightness of the ambient light shining on a Kilobot
+can be detected.
+\item A Kilobot can sense its own battery voltage. 
+\end{itemize}
+\item \textbf{Movement}: Each Kilobot has 2 vibration motors, which are
+independently controllable, allowing for differential drive
+of the robot. Each motor can be set to 255 different power
+levels. The movement happens via \emph{stick and slip} mechanism
+\item \textbf{Light}: Each Kilobot has a red/green/blue (RGB) LED pointed
+upward, and each color has 3 levels of brightness control. 
+\item \textbf{Software}: The Kilobot Controller software (kiloGUI) is available for controlling the controller board, sending program files to
+the robots and controlling them.
+\item \textbf{Programming}: C language with WinAVR compiler combined with Eclipse or the online Kilobotics editor (\url{https://www.kilobotics.com/editor})
+\item \textbf{Dimensions}: diameter: 33 mm, height 34 mm (including the legs,
+without recharge antenna). 
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+	\begin{minipage}[t]{4cm}
+		\centering
+		\includegraphics[scale=0.04]{images/kilobots}
+		\caption{Kilobot}
+		\label{fig:kilobot}
+	\end{minipage}
+	\hspace{3cm}
+	\begin{minipage}[t]{4cm}
+		\centering
+		\includegraphics[scale=0.5]{images/comm}
+		\caption{IR sensing}
+			\label{fig:comm}
+	\end{minipage}
+\end{figure}
+
+\section{Hardware/ Software Requirement}
+The required hardware and software to use the board and develop programs are described below.\\\\
+Required hardware:
+\begin{itemize}
+\item Computer with an USB port
+\item Kilobot robot
+\item Over-head controller (OHC)
+\item Kilobot charger
+\end{itemize}
+
+\noindent Required software:
+To start programming the Kilobot with the new version from kilobotics, we  have two solutions.
+\begin{itemize}
+\item Online editor \url{https://www.kilobotics.com/editor}.
+\item Install WinAVR and Eclipse to compile the whole library on your computer \url{https://github.com/mgauci/kilobot_notes/blob/master/eclipse_winavr_setup/eclipse_winavr_setu
+p.md}. 
+\end{itemize}
+We have used online editor for our labs. 
+
+\section{Over-head Controller}
+To make a robot scalable to large collective sizes, all the operations of the robot must work on the collective as a whole \cite{mclurkin2006speaking}, and not require any individual attention to the robot, such as pushing a switch or plugging in a charging cable for each robot. In other words, all collective operations must be scalable. In the case of Kilobots, instead of plugging in a programming
+cable to each robot in order to update its program, each can
+receive a program via an infrared communication channel.
+This allows an overhead infrared transmitter  (Figure \ref{fig:ohc}) to program all
+the robots in the collective in a fixed amount of time, independent of the number of robots. \\
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.04]{images/kilobots}
-	\caption{Kilobot}
-	\label{fig:kilobot}
+	\includegraphics[scale=0.5]{images/ohc}
+	\caption{Overhead Controller}
+	\label{fig:ohc}
 \end{figure}
-A more detailed software and hardware description can be found in \cite{kilobotics_manual}.
+
+\noindent Kilobots are unique in that they stay in ``sleep mode" until summoned by the overhead controller. A person can turn an entire swarm of Kilobots ``ON'' by sending out one signal -- as opposed to manually switching ``ON'' every robot.
+
 
 \chapter{Kilobot Labs}
 
