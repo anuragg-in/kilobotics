@@ -13,6 +13,7 @@
 \usepackage{enumitem}
 \usepackage{textcomp}
 \usepackage{setspace}
+\usepackage{subcaption}
 
 
 \usepackage{color}   
@@ -73,20 +74,18 @@ without recharge antenna).
 \end{itemize}
 
 \begin{figure}[H]
-\centering
-	\begin{minipage}[t]{4cm}
+	\begin{subfigure}{0.45\textwidth}
 		\centering
 		\includegraphics[scale=0.04]{images/kilobots}
 		\caption{Kilobot}
 		\label{fig:kilobot}
-	\end{minipage}
-	\hspace{3cm}
-	\begin{minipage}[t]{4cm}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
 		\centering
 		\includegraphics[scale=0.5]{images/comm}
-		\caption{IR sensing}
-			\label{fig:comm}
-	\end{minipage}
+		\caption{IR sensing (Source \cite{kilobotics_manual})}
+        \label{fig:comm}
+	\end{subfigure}
 \end{figure}
 
 \section{Hardware/ Software Requirement}
@@ -113,12 +112,12 @@ To make a robot scalable to large collective sizes, all the operations of the ro
 cable to each robot in order to update its program, each can
 receive a program via an infrared communication channel.
 This allows an overhead infrared transmitter  (Figure \ref{fig:ohc}) to program all
-the robots in the collective in a fixed amount of time, independent of the number of robots. \\
+the robots in the collective in a fixed amount of time, independent of the number of robots. 
 
 \begin{figure}
     \centering
 	\fbox{\includegraphics[scale=0.5]{images/ohc}}
-	\caption{Overhead Controller}
+	\caption{Overhead Controller (Source: \cite{kilobotics_manual})}
 	\label{fig:ohc}
 \end{figure}
 \noindent Kilobots are unique in that they stay in ``sleep mode" until summoned by the overhead controller. A person can turn an entire swarm of Kilobots ``ON'' by sending out one signal -- as opposed to manually switching ``ON'' every robot.
@@ -247,5 +246,5 @@ Video of working demo of problem statement can be accessed using link in Figure 
 \end{figure}
 
 \bibliography{anurag}{}
-\bibliographystyle{}
+\bibliographystyle{ieeetr}
 \end{document}
