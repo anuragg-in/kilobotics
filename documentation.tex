@@ -1,4 +1,3 @@
-
 \documentclass{report}[12pt]
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -188,7 +187,14 @@ robots to allow two or more Kilobots to blink an LED in unison roughly every 4 s
 Hence, synchronization is one of the swarm behaviours which can be performed by Kilobots. It is often used when coordinating simultaneous
 actions between many entities, such as robots or sensor networks.\\
 
-\noindent For our objective, we will use a method that relies on averaging. Each Kilobot acts as an oscillator, flashing its LED in a fixed period \texttt{P}. At the same time, it continually transmits a message with its current position in the clock period (i.e. a value between \texttt{0} and \texttt{P}. In the absence of any neighbors, the Kilobot will simply blink in a fixed period, like a firefly. If the Kilobot hears neighboring Kilobots, then it receives information about their current positions in their own periods. In order to synchronize, it collects that information and uses the average to make an adjustment to its own next flashing time. \\
+\begin{figure}
+    \centering
+	\includegraphics[scale=0.6]{images/sync-algo}
+	\caption{Algorithm for synchronizing phase of blinking LEDs }
+	\label{fig:sync}
+\end{figure}
+
+\noindent For our objective, we will use a method that relies on averaging. The algorithm for Synchronizing robots is given in the flowchart (Figure \ref{fig:sync}).  Each Kilobot acts as an oscillator, flashing its LED in a fixed period \texttt{P}.  At the same time, it continually transmits a message with its current position in the clock period (i.e. a value between \texttt{0} and \texttt{P}.  In the absence of any neighbors, the Kilobot will simply blink in a fixed period, like a firefly.  If the Kilobot hears neighboring Kilobots, then it receives information about their current positions in their own periods. In order to synchronize, it collects that information and uses the average to make an adjustment to its own next flashing time. The steps can be summarized as given below: \\ 
 
 \noindent \textbf{Step 1}: Create a robot oscillator that flashes every 2 seconds.
 \begin{verbatim}
