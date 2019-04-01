@@ -83,7 +83,7 @@ without recharge antenna).
 	\begin{subfigure}{0.45\textwidth}
 		\centering
 		\includegraphics[scale=0.5]{images/comm}
-		\caption{IR sensing (Source \cite{kilobotics_manual})}
+		\caption{IR sensing (Source \cite{al})}
         \label{fig:comm}
 	\end{subfigure}
 \end{figure}
@@ -114,7 +114,7 @@ receive a program via an infrared communication channel.
 This allows an overhead infrared transmitter  (Figure \ref{fig:ohc}) to program all
 the robots in the collective in a fixed amount of time, independent of the number of robots. 
 
-\begin{figure}
+\begin{figure}[H]
     \centering
 	\fbox{\includegraphics[scale=0.5]{images/ohc}}
 	\caption{Overhead Controller (Source: \cite{kilobotics_manual})}
@@ -203,7 +203,7 @@ int main() {
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.55]{speaker}
+\includegraphics[scale=0.4]{speaker}
 \caption{Broadcasting of a message}
 \end{center}
 \end{figure} 
@@ -311,7 +311,7 @@ robots to allow two or more Kilobots to blink an LED in unison roughly every 4 s
 Hence, synchronization is one of the swarm behaviours which can be performed by Kilobots. It is often used when coordinating simultaneous
 actions between many entities, such as robots or sensor networks.\\
 
-\begin{figure}
+\begin{figure}[H]
     \centering
 	\includegraphics[scale=0.6]{images/sync-algo}
 	\caption{Algorithm for synchronizing phase of blinking LEDs }
