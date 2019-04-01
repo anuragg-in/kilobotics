@@ -125,6 +125,131 @@ the robots in the collective in a fixed amount of time, independent of the numbe
 \chapter{Kilobot Labs}
 
 \section{Establishing communication between two Kilobots}
+In this lab we will use the ability of two kilobots to communicate with each other. We will allocate one kilobot to be the speaker and the other kilobot to be the listener.
+\subsection{Speaker}
+ The objective of this part is to broadcast a fixed message, and blink magenta when we transmit. Here we introduce \texttt{message\_t} data structure, and the kilo\_message\_tx callback.
+\begin{itemize}
+\item A kilobot uses infrared (IR) to broadcast a message within an approximately circular radius of three body lengths.
+
+\item  Multiple robots packed closely together will interfere the IR signals. So the kilobots use a variant of the CSMA/CD media access control method  to resolve the problems with interference.\par
+
+Carrier-sense multiple access with collision detection (CSMA/CD) is a media access control method which uses carrier-sensing to delay transmissions until no other stations are transmitting. 
+\end{itemize}
+
+\noindent \textbf{Step 1}: Declare a variable called transmit\_msg of the structure type message\_t and add the function message\_tx() that returns the address of the message we declared (return $\And$transmit\_msg).
+\newline
+\newline
+ \noindent \textbf{Step 2}: We will register this "callback" function in the kilobot main loop, and every time the kilobot is ready to send a message it will "interrupt" the main code and call the message\_tx() to get the message that needs to be sent.\par
+ A callback is any executable code that is passed as an argument to other code, which is expected to call back the argument at a given time.
+\begin{verbatim}
+message_t transmit_msg;
+
+message_t *message_tx() {
+    return &transmit_msg;
+} 
+
+\end{verbatim}
+\noindent \textbf{Step 3}:
+ Use the setup() function to set the initial contents of the message and compute the message CRC value (used for error detection) through the function message\_crc(). The code below shows how to initialize a simple message. \par
+ A cyclic redundancy check (CRC) is an error-detecting code which is used to detect accidental changes to raw data.
+\begin{verbatim}
+void setup() {
+    transmit_msg.type = NORMAL;
+    transmit_msg.data[0]=0;
+    transmit_msg.crc = message_crc(&transmit_msg);
+}
+\end{verbatim}
+
+\noindent \textbf{Step 4}:
+ Now we will add some more code so that we can have the LED blink whenever the robot sends a message out. To do this we will declare a variable (often called a "boolean flag") called message\_sent. We will set this flag inside a function called message\_tx\_success() which is another callback function that only gets called when a message is finally successfully sent on a channel. Then we will clear this flag in the main loop where we will blink an LED to indicate that a message was sent. 
+\begin{verbatim}
+//At the top of the file, declare a "flag" for when a message is sent
+int message_sent = 0;
+
+// Add another function definition after your message_tx function
+// (note that "void" means the function doesn't return any value)
+
+void message_tx_success() {
+   message_sent = 1;
+}
+\end{verbatim}
+
+\noindent \textbf{Step 5}:
+Then, in our program loop, write code to do this
+
+\begin{verbatim}
+// Blink led magenta when you get a message
+if (message_sent == 1) {
+    message_sent = 0;
+    set_color(RGB(1,0,1));
+    delay(100);
+    set_color(RGB(0,0,0));
+}
+\end{verbatim}
+
+\noindent \textbf{Step 6}:
+Finally, we must register our message transmission functions with the kilobot library as follows:
+\begin{verbatim}
+int main() {
+    kilo_init();
+    kilo_message_tx = message_tx;
+    kilo_message_tx_success = message_tx_success;
+    kilo_start(setup, loop);
+
+    return 0;
+}
+
+\end{verbatim}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.55]{speaker}
+\caption{Broadcasting of a message}
+\end{center}
+\end{figure} 
+
+\subsection{Listener}
+The objective of this part is to blink yellow when a new message is received and introduce the kilo\_message\_rx callback and store incoming messages.
+\newline
+\newline
+\noindent \textbf{Step 1}:
+First declare a variable rcvd\_message of type message\_t to store any new incoming messages and a boolean variable called new\_message to indicate that a new message has been received.
+\begin{verbatim}
+int new_message = 0;
+message_t rcvd_message;
+
+void message_rx(message_t *msg, distance_measurement_t *dist) {
+    rcvd_message = *msg;  //store the incoming message
+    new_message = 1;      // set the flag to 1 to indicate that a new message arrived
+}
+\end{verbatim}
+
+\noindent \textbf{Step 2}:
+Check the flag in the program loop to see if a new message has arrived. If a new message has arrived, we will blink the LED yellow, and clear the flag.
+
+\begin{verbatim}
+void loop() {
+    // Blink led yellow when you get a message
+    if (new_message == 1) {
+        new_message = 0;
+        set_color(RGB(1,1,0));
+        delay(100);
+        set_color(RGB(0,0,0));
+    }
+}
+\end{verbatim}
+\noindent \textbf{Step 3}:
+Modify our main section to register the message reception function with the kilobot library as follows:
+
+\begin{verbatim}
+int main() {
+    kilo_init();
+    kilo_message_rx = message_rx;
+    kilo_start(setup, loop);
+
+    return 0;
+}
+\end{verbatim}
 \subsection{Demonstration}
 Video of working demo of problem statement can be accessed using link in figure \ref{fig:communication}.
 \begin{figure}[H]
