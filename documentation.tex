@@ -37,12 +37,12 @@
 
 \chapter{Overview of Kilobots}
 
-Kilobots are low cost robots designed at \textbf{Harvard University's Self-Organizing Systems Research Lab} \url{http://www.eecs.harvard.edu/ssr}. The robots are designed to make testing collective algorithms on hundreds or thousands of robots accessible to robotics researchers.\\
+Kilobots (Figure \ref{fig:kilobot}) are low cost robots designed at \textbf{Harvard University's Self-Organizing Systems Research Lab} \url{http://www.eecs.harvard.edu/ssr}. The robots are designed to make testing collective algorithms on hundreds or thousands of robots accessible to robotics researchers.\\
 
 Though the Kilobots are low-cost, they maintain abilities similar to other collective robots. These abilities include differential drive locomotion, on-board computation power, neighbor-to-neighbor communication, neighbor-to neighbor distance sensing, and ambient light sensing. Additionally they are designed to operate such that no robot requires any individual attention by a human operator. This makes controlling a group of Kilobots easy, whether there are 10 or 1000 in the group.
  
 \section{Specifications of Kilobot}
-Kilobots (Figure \ref{fig:kilobot}) are low cost, low power, tiny robots designed by Harvard University's Self Organizing Systems Research Lab with the aim of making testing collective algorithms accesible to researchers \cite{kilobotics_manual}. It has following specifications:
+The functional specifications \cite{kilobotics_manual} of the Kilobot robot are as follow:
 \begin{itemize}
 \item \textbf{Processor}: ATmega 328p (8bit @ 8MHz)
 \item \textbf{Memory}: 
@@ -110,8 +110,8 @@ We have used online editor for our labs.
 \section{Over-head Controller}
 To make a robot scalable to large collective sizes, all the operations of the robot must work on the collective as a whole \cite{mclurkin2006speaking}, and not require any individual attention to the robot, such as pushing a switch or plugging in a charging cable for each robot. In other words, all collective operations must be scalable. In the case of Kilobots, instead of plugging in a programming
 cable to each robot in order to update its program, each can
-receive a program via an infrared communication channel.
-This allows an overhead infrared transmitter  (Figure \ref{fig:ohc}) to program all
+receive a program via an IR communication channel.
+This allows an overhead IR transmitter  (Figure \ref{fig:ohc}) to program all
 the robots in the collective in a fixed amount of time, independent of the number of robots. 
 
 \begin{figure}[H]
@@ -122,16 +122,16 @@ the robots in the collective in a fixed amount of time, independent of the numbe
 \end{figure}
 \noindent Kilobots are unique in that they stay in ``sleep mode" until summoned by the overhead controller. A person can turn an entire swarm of Kilobots ``ON'' by sending out one signal -- as opposed to manually switching ``ON'' every robot.
 
-\chapter{Kilobot Labs}
-
+\chapter{Programming the Kilobots}
+In this chapter, we program the Kilobots (using the Kilobotics software) to perform certain tasks.  
 \section{Establishing communication between two Kilobots}
-In this lab we will use the ability of two kilobots to communicate with each other. We will allocate one kilobot to be the speaker and the other kilobot to be the listener.
+Here, we will use the ability of two Kilobots to communicate with each other. We will allocate one Kilobot to be the speaker and the other Kilobot to be the listener.
 \subsection{Speaker}
  The objective of this part is to broadcast a fixed message, and blink magenta when we transmit. Here we introduce \texttt{message\_t} data structure, and the kilo\_message\_tx lback.
 \begin{itemize}
-\item A kilobot uses infrared (IR) to broadcast a message within an approximately circular radius of three body lengths.
+\item A Kilobot uses IR to broadcast a message within an approximately circular radius of three body lengths.
 
-\item  Multiple robots packed closely together will interfere the IR signals. So the kilobots use a variant of the CSMA/CD media access control method  to resolve the problems with interference.\par
+\item  Multiple robots packed closely together will interfere the IR signals. So the Kilobots use a variant of the CSMA/CD media access control method  to resolve the problems with interference.\par
 
 Carrier-sense multiple access with collision detection (CSMA/CD) is a media access control method which uses carrier-sensing to delay transmissions until no other stations are transmitting. 
 \end{itemize}
@@ -139,7 +139,7 @@ Carrier-sense multiple access with collision detection (CSMA/CD) is a media acce
 \noindent \textbf{Step 1}: Declare a variable called transmit\_msg of the structure type message\_t and add the function message\_tx() that returns the address of the message we declared (return $\And$transmit\_msg).
 \newline
 \newline
- \noindent \textbf{Step 2}: We will register this "callback" function in the kilobot main loop, and every time the kilobot is ready to send a message it will "interrupt" the main code and call the message\_tx() to get the message that needs to be sent.\par
+ \noindent \textbf{Step 2}: We will register this "callback" function in the Kilobot main loop, and every time the Kilobot is ready to send a message it will "interrupt" the main code and call the message\_tx() to get the message that needs to be sent.\par
  A callback is any executable code that is passed as an argument to other code, which is expected to call back the argument at a given time.
 \begin{verbatim}
 message_t transmit_msg;
@@ -188,7 +188,7 @@ if (message_sent == 1) {
 \end{verbatim}
 
 \noindent \textbf{Step 6}:
-Finally, we must register our message transmission functions with the kilobot library as follows:
+Finally, we must register our message transmission functions with the Kilobot library as follows:
 \begin{verbatim}
 int main() {
     kilo_init();
@@ -239,7 +239,7 @@ void loop() {
 }
 \end{verbatim}
 \noindent \textbf{Step 3}:
-Modify our main section to register the message reception function with the kilobot library as follows:
+Modify our main section to register the message reception function with the Kilobot library as follows:
 
 \begin{verbatim}
 int main() {
@@ -255,12 +255,12 @@ Video of working demo of problem statement can be accessed using link in figure 
 \begin{figure}[H]
 	\centering
 	\fbox{\includegraphics[scale=0.25]{images/communication}}
-	\caption{\href{https://photos.app.goo.gl/h2jCY1WrUYU9xLqG8}{Communication between two kilobots [video link]}}
+	\caption{\href{https://photos.app.goo.gl/h2jCY1WrUYU9xLqG8}{Communication between two Kilobots [video link]}}
 	\label{fig:communication}
 \end{figure}
 
 \section{Orbiting of Kilobots}
-Our objective is to make one kilobot orbit a stationary kilobot using distance estimation. We will refer to orbiting kilobot as planet and stationary kilobot as star. The alogrithm goes as follows:
+Our objective is to make one Kilobot orbit a stationary Kilobot using distance estimation. We will refer to orbiting Kilobot as planet and stationary Kilobot as star. The alogrithm goes as follows:
 
 \begin{enumerate}
     \item Place star and planet under communication link distance.
@@ -277,13 +277,13 @@ Video of working demo of problem statement can be accessed using link in figure 
 \begin{figure}[H]
 	\centering
 	\fbox{\includegraphics[scale=0.3]{images/orbit}}
-	\caption{\href{https://photos.app.goo.gl/xPYoywncwhCk585X8}{Orbiting of kilobot [video link]}}
+	\caption{\href{https://photos.app.goo.gl/xPYoywncwhCk585X8}{Orbiting of Kilobot [video link]}}
 	\label{fig:orbit}
 \end{figure}
 we will be using the distances of the recived message to determine how to move so you need to have estimate\textunderscore distance() in your message\textunderscore rx()\\
 
 \section{Programming Kilobots to move towards the direction of light source}
-In this part, our objective is to design an algorithm so that kilobot approaches a source of light (generated by torch light of smartphone) which may be dynamically moving with very slow speed.\\
+In this part, our objective is to design an algorithm so that Kilobot approaches a source of light (generated by torch light of smartphone) which may be dynamically moving with very slow speed.\\
 The problem statement is similar to that of a line follower with just one onboard sensor \cite{simple-line-follower}. The algorithm for single sensor line follower goes as follows:
 \begin{enumerate}
 	\item Check sensor position.
@@ -315,18 +315,18 @@ Different $THRESH\_LOW$ and $THRESH\_HI$ parameters were chosen to implement hys
 \textbf{Objective}: Create a logical synchronous clock between different 
 robots to allow two or more Kilobots to blink an LED in unison roughly every 4 seconds \\
 
-\noindent A large group of decentralized closely cooperating entities, commonly called a collective or \textbf{swarm}, can work together to complete a task that is beyond the capabilities of any of its individuals \cite{rubenstein2014kilobot}. Following are the three basic swarm behaviors that Kilobots have mastered: 
+\noindent A large group of decentralized closely cooperating entities, commonly called a collective or \textbf{swarm}, can work together to complete a task that is beyond the capabilities of any of its individuals \cite{rubenstein2014kilobot}. Following are the three basic swarm behaviors \cite{rubenstein2014kilobot} that Kilobots have mastered: 
 \begin{enumerate}
-	\item  Foraging
-	\item  Formation control, and 
-	\item Synchronization
+	\item  \textbf{Foraging} -- It involves commanding several robots to disperse and explore the area around them. With Kilobots, the idea is to chip away the time it takes to forage in a particular location. 
+	\item  \textbf{Formation control} -- It means the ability of Kilobots to behave in unison or in a specific part of the swarm. By maintaining communication with each other, Kilobots possess a virtual bearing sensor that gives each one a realistic sense of its position in the group. 
+	\item \textbf{Synchronization} -- It is often used when coordinating simultaneous actions between many entities, such as robots or sensor networks. We can  visualize this by imagining a swarm of 1,000 Kilobots, with each using its LED light to represent a pixel in a larger video that can be viewed from above. To know which color to signal at any given time, every Kilobot must be using the same clock.
 \end{enumerate}
 Hence, synchronization is one of the swarm behaviours which can be performed by Kilobots. It is often used when coordinating simultaneous
 actions between many entities, such as robots or sensor networks.\\
 
 \begin{figure}[H]
     \centering
-	\includegraphics[scale=0.6]{images/sync-algo}
+	\includegraphics[scale=0.5]{images/sync-algo}
 	\caption{Algorithm for synchronizing phase of blinking LEDs }
 	\label{fig:sync}
 \end{figure}
