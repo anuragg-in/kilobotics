@@ -388,6 +388,27 @@ Video of working demo of problem statement can be accessed using link in Figure 
 	\label{fig:sync_lights}
 \end{figure}
 
+\chapter{Efficient star-planet orbiting using a finite state machine}
+\section{Discussion}
+\begin{itemize}
+    \item Motor was turned on for 40ms.
+    \item Spinup motor was not used as it creates chaos.
+    \item Revolution time around 6 minutes.
+    \item Only left, right motion was used for orbiting.
+    \item Algorithm can be improved using soft delay instead of hard delay.
+    \item Algorithm for escaping $too\_close$ distance worked and then stopped working suddenly.
+    \item Use $max\_distance-min\_distance>some\_threshold$ to obtain orientation away from obstacle. This is more robust than checking for transition from increasing to decreasing distance.
+    \item Draw flowchart for the algorithm.
+\end{itemize}
+\section{Demonstration}
+Figure \ref{fig:efficient_star_planet_orbiting} provides the link to the demo for orbiting of planet around the star given star starts near the desired distance.
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[scale=0.4]{images/efficient_orbiting}}
+    \caption{\href{https://photos.app.goo.gl/A}{Efficient star-planet orbiting}}
+    \label{fig:efficient_star_planet_orbiting}
+\end{figure}
+
 \bibliography{anurag}{}
 \bibliographystyle{ieeetr}
 \end{document}
