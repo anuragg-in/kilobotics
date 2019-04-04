@@ -1,4 +1,5 @@
 *
+!tex/
 !*.tex
 !.gitignore
 !**/*.jpg
