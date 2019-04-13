@@ -7,3 +7,5 @@
 !*.sty
 !*.bib
 !images/
+!code/
+!*.c
