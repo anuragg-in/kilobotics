@@ -102,9 +102,63 @@ Figure \ref{fig:orbit_three_stars} provides link to the demo of algorithm for pl
     \centering
     \fbox{\includegraphics[width=3in]{images/orbiting_three_stars}}
     \caption{\href{https://youtu.be/5aZm0Os9BPc}{Orbiting of planet around three stars using four communications to estimate minimum distance (Planet: Kilobot with red LED, No. of communications = 4)}}
-    \label{fig:s}
+    \label{fig:orbit_three_stars}
 \end{figure}
+
+\chapter{Future works}
+In this chapter, we will discuss an algorithm motivated by the work \cite{MR-AC-RN:2014} of SSL lab, Harvard University, for shape formation. Rather than implementing the entire algorithm, we will only consider a portion of it assuming that the next robot to be placed is available near origin.
+\section{Shape formation}
+\begin{itemize}
+        \item Three robots (guides) are to be used as reference for axis orientation.
+        \item A robot (builder) to participate in shape formation starts near the left of origin.
+        \item The robot continues to orbit using the orbiting algorithm of previous chapter.
+        \item The builder stops orbiting and establishes itself at desired location when it finds itself meeting the required location condition shared amongst builders.
+\end{itemize}
+To participate in shape formation, builders need to decide upon what global shape to form. This is achieved by sharing a shape matrix encapsulating the desired shape as an array of 5 touple.
+\begin{align}
+\begin{bmatrix}
+    INDEX & NEIGHBOUR\_1 & DESIRED\_DISTANCE\_1 & NEIGHBOUR\_2 & DESIRED\_DISTANCE\_2\\
+    \cdots & \cdots & \cdots & \cdots & \cdots\\
+    \cdots & \cdots & \cdots & \cdots & \cdots
+\end{bmatrix}
+\end{align}
+For forming a linear shape of width 2, the shape matrix would look like
+\begin{align}
+\label{eq:shape_matrix_linear}
+\begin{bmatrix}
+    3 & 1 & 1 & 2 & 1\\
+    4 & 2 & 1 & 3 & \sqrt{2}\\
+    5 & 3 & 1 & 4 & 1\\
+    \cdots & \cdots & \cdots & \cdots & \cdots
+\end{bmatrix}
+\end{align}
+\subsection{Flowchart}
+Figure \ref{fig:fc_shape_form} explains the algorithm for shape formation. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{"images/shape formation"}
+    \caption{Flowchart for shape formation algorithm}
+    \label{fig:fc_shape_form}
+\end{figure}
+
+\subsection{Discussion}
+Figure \ref{fig:shape_formation_process_1} and \ref{fig:shape_formation_process_2} helps in visualizing the shape formation process for shape matrix of \eqref{eq:shape_matrix_linear}, which corresponds to a line of width 2.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{"images/shape_formation_process_1"}
+    \caption{First builder taking its position}
+    \label{fig:shape_formation_process_1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{"images/shape_formation_process_2"}
+    \caption{Second builder taking its position}
+    \label{fig:shape_formation_process_2}
+\end{figure}
+
 \chapter{Conclusion}
+In the second part of lab work, we aimed to develop building blocks for shape formation. In the process, we tested algorithms for an efficient orbiting, algorithm for escaping an obstacle, and lastly, an algorithm for orbiting multiple stars. We ended with a discussion on data structure and algorithm design for shape formation by utilizing the orbiting algorithm.
 \section{Acknowledgement}
 We would like to thank Tejdeep Reddy for his teaching assistance and lab staffs for maintaining a healthy number of working robots. Moreover, we would like to thank Prof. Leena Vachhani for her coursework on Automation and Feedback which motivated us to approach the problem using finite state machine.
 \bibliography{anurag}{}
