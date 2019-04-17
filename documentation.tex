@@ -53,6 +53,8 @@
     \item (Motor delay = 500, No. of communications = 2, Time = 5 minutes, 9:30 p.m.). This time there is possibility of receiving communication from same star twice but that is small over successive trials.
     \item Too close escape. (Motor delay = 500, threshold = 14, radius = 65, Time = 2 minutes, 10:23 p.m.)
     \item Orbiting three stars (Time = 6 minutes, Communication = 4, Motor delay = 500).
+    \item Assign different data to stars.
+    \item Use float to store distance.
 \end{itemize}
 \section{Flowchart}
 Flowcharts ADD HERE.
@@ -105,9 +107,9 @@ Figure \ref{fig:orbit_three_stars} provides link to the demo of algorithm for pl
     \label{fig:orbit_three_stars}
 \end{figure}
 
-\chapter{Future works}
+\chapter{Shape formation}
 In this chapter, we will discuss an algorithm motivated by the work \cite{MR-AC-RN:2014} of SSL lab, Harvard University, for shape formation. Rather than implementing the entire algorithm, we will only consider a portion of it assuming that the next robot to be placed is available near origin.
-\section{Shape formation}
+\section{}
 \begin{itemize}
         \item Three robots (guides) are to be used as reference for axis orientation.
         \item A robot (builder) to participate in shape formation starts near the left of origin.
@@ -132,29 +134,40 @@ For forming a linear shape of width 2, the shape matrix would look like
     \cdots & \cdots & \cdots & \cdots & \cdots
 \end{bmatrix}
 \end{align}
-\subsection{Flowchart}
-Figure \ref{fig:fc_shape_form} explains the algorithm for shape formation. 
+\section{Flowchart}
+Figure \ref{fig:fc_shape_form} explains the algorithm for shape formation. Our algorithm differs from \cite{MR-AC-RN:2014} in its n of localization. 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.7]{"images/shape formation"}
+    \includegraphics[scale=0.7]{images/shape_formation}
     \caption{Flowchart for shape formation algorithm}
     \label{fig:fc_shape_form}
 \end{figure}
 
-\subsection{Discussion}
-Figure \ref{fig:shape_formation_process_1} and \ref{fig:shape_formation_process_2} helps in visualizing the shape formation process for shape matrix of \eqref{eq:shape_matrix_linear}, which corresponds to a line of width 2.
+\section{Discussion}
+Figure \ref{fig:shape_formation_process_1} and \ref{fig:shape_formation_process_2} helps in visualizing the shape formation process for shape matrix \eqref{eq:shape_matrix_linear}, which corresponds to a line of width 2. When first builder starts its journey, it never faces a situation which requires $INDEX$ update and hence, it ultimately reaches the desired location corresponding to $INDEX$ 3 and retires. 
+
+When second builder arrives with initialzed $INDEX$ 3, it continues on its journey to occupy the desired location coresponding to $INDEX$ 3, but when it comes in communication range of robot indexed 3, it realizes that it needs to update its $INDEX$ to 4. Following which, it travels on to the desired location for updated $INDEX$ 4.
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.7]{"images/shape_formation_process_1"}
+    \includegraphics[scale=0.6]{"images/shape_formation_process_1"}
     \caption{First builder taking its position}
     \label{fig:shape_formation_process_1}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.7]{"images/shape_formation_process_2"}
+    \includegraphics[scale=0.6]{"images/shape_formation_process_2"}
     \caption{Second builder taking its position}
     \label{fig:shape_formation_process_2}
+\end{figure}
+
+\section{Demonstration}
+Figure \ref{fig:shape_formation_demo} provides the link to video of shape formation in action. Shape matrix \eqref{eq:shape_matrix_linear} was fed to each builder robots to form a rectangle of width=2 and length=3.
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[width=5in]{images/shape_formation_demo}}
+    \caption{\href{https://youtu.be/SoDq9GQvNAE}{Shape formation by kilobots (Shape: Rectangle of breadth 2 and length 3) (Moving robots: Bluish LED)}}
+    \label{fig:shape_formation_demo}
 \end{figure}
 
 \chapter{Conclusion}
