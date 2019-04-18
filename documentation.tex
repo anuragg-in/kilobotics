@@ -90,7 +90,7 @@ Figure \ref{fig:efficient_star_planet_orbiting} provides link to the demo for or
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=3in]{images/efficient_orbiting}}
-    \caption{\href{https://youtu.be/LRgOzhAJI1k}{Efficient star-planet orbiting (Planet: Kilobot with green LED)}}
+    \caption{\href{https://youtu.be/LRgOzhAJI1k}{Efficient star-planet orbiting}}
     \label{fig:efficient_star_planet_orbiting}
 \end{figure}
 
@@ -106,15 +106,15 @@ Figure \ref{fig:orbit_after_escape} provides link to the demo of algorithm for p
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=3in]{images/orbit_after_escape}}
-    \caption{\href{https://youtu.be/X6dGCLT0ho8}{Escaping too close region of star by planet followed by orbiting (Planet: Kilobot with green LED)}}
+    \caption{\href{https://youtu.be/X6dGCLT0ho8}{Escaping too close region of star by planet followed by orbiting}}
     \label{fig:orbit_after_escape}
 \end{figure}
 
-Figure \ref{fig:orbit_two_star_comm1} provides link to the demo of algorithm for planet to orbit around two stars. Only single communication is used to identify minimum distance, leading to instability.
+Figure \ref{fig:orbit_two_star_comm1} provides link to the demo of algorithm for planet to orbit around two stars. Only single communication was used to identify minimum distance, leading to instability.
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=3in]{images/orbit_two_stars_comm_1}}
-    \caption{\href{https://youtu.be/mhW04WvGKuQ}{Orbiting of planet around two stars using single communication leads to instability (Planet: Kilobot with green LED, No. of communications = 1)}}
+    \caption{\href{https://youtu.be/mhW04WvGKuQ}{Orbiting of planet around two stars using single communication to estimate minimum distance leads to instability}}
     \label{fig:orbit_two_star_comm1}
 \end{figure}
 
@@ -122,7 +122,7 @@ Figure \ref{fig:orbit_two_star} provides link to the demo of algorithm for plane
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=3in]{images/orbit_two_stars}}
-    \caption{\href{https://youtu.be/EKvty2OxXxM}{Orbiting of planet around two stars using 2 communications to estimate minimum distance (Planet: Kilobot with green LED, No. of communications = 2)}}
+    \caption{\href{https://youtu.be/EKvty2OxXxM}{Orbiting of planet around two stars using two communications to estimate minimum distance}}
     \label{fig:orbit_two_star}
 \end{figure}
 
@@ -130,25 +130,25 @@ Figure \ref{fig:orbit_three_stars} provides link to the demo of algorithm for pl
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=3in]{images/orbiting_three_stars}}
-    \caption{\href{https://youtu.be/5aZm0Os9BPc}{Orbiting of planet around three stars using four communications to estimate minimum distance (Planet: Kilobot with red LED, No. of communications = 4)}}
+    \caption{\href{https://youtu.be/5aZm0Os9BPc}{Orbiting of planet around three stars using four communications to estimate minimum distance}}
     \label{fig:orbit_three_stars}
 \end{figure}
 
 \chapter{Shape formation}
-In this chapter, we will discuss an algorithm motivated by the work \cite{MR-AC-RN:2014} of SSL lab, Harvard University, for shape formation. Rather than implementing the entire algorithm, we will only consider a portion of it assuming that the next robot to be placed is available near origin.
-\section{}
+In this chapter, we will discuss an algorithm motivated by the work \cite{MR-AC-RN:2014} of SSL lab, Harvard University, for shape formation. Rather than implementing the entire algorithm, we will only consider a portion of it, assuming that the next robot to be placed is available near origin.
+\section{Framework}
 \begin{itemize}
         \item Three robots (guides) are used as reference for axis orientation.
         \item A robot (builder) participating in shape formation starts near the left of origin.
         \item In its effort to reach the desired location, builder orbits around the partial shape using the algorithm presented in last chapter.
         \item The builder stops orbiting when it reaches the desired location.
-        \item Builder becomes a guide, therefore, helping the next builder.
+        \item Builder becomes a guide, thereby, helping the next builder.
 \end{itemize}
-To participate in shape formation, builders need to decide upon what global shape to form. This is achieved by sharing a shape matrix encapsulating the desired shape as an array of 5-touple. The 5-touple contains the following information necessary for establishing builders at desired location
+To participate in shape formation, builders need to decide upon what global shape to form. This is achieved by sharing a shape matrix encapsulating the desired shape as an array of 5-touple. The 5-touple contains the following information necessary for establishing builders at desired location:
 \begin{align}
 \left(
 \begin{matrix}
-    Index_1 & Neighbour_1 & Desired\ distance_1 & Neighbour_2 & Desired\ distance_2
+    Index & Neighbour_1 & Desired\ distance_1 & Neighbour_2 & Desired\ distance_2
 \end{matrix}
 \right)
 \end{align}
@@ -162,7 +162,7 @@ For forming a linear shape of width 2, the shape matrix would look like
     \cdots & \cdots & \cdots & \cdots & \cdots
 \end{bmatrix}
 \end{align}
-It is important to note that we require the shape to be such that each node has atleast two neighbours or else builder will fail to localize correctly.
+It is important to note that we require the shape to ensure two neighbours for each node or else builder would fail to localize correctly.
 \section{Flowchart}
 Figure \ref{fig:fc_shape_form} explains the algorithm for shape formation. Our algorithm differs from \cite{MR-AC-RN:2014} in its implementation of shape matrix, and localization to be discussed in detail in next section.
 \begin{figure}[H]
