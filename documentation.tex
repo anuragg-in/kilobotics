@@ -144,7 +144,7 @@ In this chapter, we will discuss an algorithm motivated by the work \cite{MR-AC-
         \item The builder stops orbiting when it reaches the desired location.
         \item Builder becomes a guide, thereby, helping the next builder.
 \end{itemize}
-To participate in shape formation, builders need to decide upon what global shape to form. This is achieved by sharing a shape matrix encapsulating the desired shape as an array of 5-touple. The 5-touple contains the following information necessary for establishing builders at desired location:
+To participate in shape formation, builders need to decide upon what global shape to form. This is achieved by sharing a shape matrix encapsulating the desired shape as an array of 5-tuple. The 5-tuple contains the following information necessary for establishing builders at desired location:
 \begin{align}
 \left(
 \begin{matrix}
@@ -180,7 +180,7 @@ Figure \ref{fig:shape_formation_process_1} and \ref{fig:shape_formation_process_
     \caption{First builder taking its position}
     \label{fig:shape_formation_process_1}
 \end{figure}
-When second builder arrives with initialzed $Index$ 3, it continues on its journey to occupy the desired location coresponding to $Index$ 3, but when it comes in communication range of robot indexed 3, it realizes that it needs to update its $Index$ to 4. Following which, it travels to the desired location corresponding to $Index$ 4.
+When second builder arrives with initialized $Index$ 3, it continues on its journey to occupy the desired location coresponding to $Index$ 3, but when it comes in communication range of robot indexed 3, it realizes that it needs to update its $Index$ to 4. Following which, it travels to the desired location corresponding to $Index$ 4.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{"images/shape_formation_process_2"}
