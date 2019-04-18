@@ -17,16 +17,16 @@
 #define MEASURE_DISTANCE 0
 #define DISTANCE_CHECK_ORBIT 1
 #define TOO_CLOSE 2
-#define TOO_CLOSE_ESCAPE 4
-#define GREATER_THAN_DESIRED 5
-#define SMALLER_THAN_DESIRED 6
-#define WAIT 7
-#define MEASURE_AGAIN 8
-#define WAIT_AGAIN 9
-#define UPDATE_MINIMUM_DISTANCE 10
-#define MEASURE_ESCAPE 11
-#define WAIT_ESCAPE 12
-#define FINISH 15
+#define TOO_CLOSE_ESCAPE 3
+#define GREATER_THAN_DESIRED 4
+#define SMALLER_THAN_DESIRED 5
+#define WAIT 6
+#define MEASURE_AGAIN 7
+#define WAIT_AGAIN 8
+#define UPDATE_MINIMUM_DISTANCE 9
+#define MEASURE_ESCAPE 10
+#define WAIT_ESCAPE 11
+#define FINISH 12
 
 //----- VARIABLE DECLARATION -----
 int state, last_state, distance, last_distance, message_rx_status, min_distance, temp;

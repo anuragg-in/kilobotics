@@ -110,7 +110,7 @@ Figure \ref{fig:orbit_after_escape} provides link to the demo of algorithm for p
     \label{fig:orbit_after_escape}
 \end{figure}
 
-Figure \ref{fig:orbit_two_star_comm1} provides link to the demo of algorithm for planet to orbit around two stars. Only single communication was used to identify minimum distance, leading to instability.
+Figure \ref{fig:orbit_two_star_comm1} provides link to the demo of algorithm for planet to orbit around two stars. Only single communication was used to identify minimum distance, leading to instability which can be attributed to CSMA/CD \cite{WEBOPEDIA-csma-cd} communication protocol followed by Kilobots.
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=3in]{images/orbit_two_stars_comm_1}}
@@ -164,7 +164,7 @@ For forming a linear shape of width 2, the shape matrix would look like
 \end{align}
 It is important to note that we require the shape to ensure two neighbours for each node or else builder would fail to localize correctly.
 \section{Flowchart}
-Figure \ref{fig:fc_shape_form} explains the algorithm for shape formation. Our algorithm differs from \cite{MR-AC-RN:2014} in its implementation of shape matrix, and localization to be discussed in detail in next section.
+Figure \ref{fig:fc_shape_form} explains the algorithm for shape formation. Our algorithm differs from \cite{MR-AC-RN:2014} in its implementation of shape matrix, and localization to be discussed later in next section.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.6]{images/shape_formation}
@@ -173,14 +173,16 @@ Figure \ref{fig:fc_shape_form} explains the algorithm for shape formation. Our a
 \end{figure}
 
 \section{Discussion}
-Figure \ref{fig:shape_formation_process_1} and \ref{fig:shape_formation_process_2} helps in visualizing the shape formation process for shape matrix \eqref{eq:shape_matrix_linear}, which corresponds to a line of width 2. When first builder starts its journey, it never faces a situation which requires $Index$ update and hence, it ultimately reaches the desired location corresponding to $Index$ 3 and retires. 
+Figure \ref{fig:shape_formation_process_1} and \ref{fig:shape_formation_process_2} helps in visualizing the shape formation process for shape matrix \eqref{eq:shape_matrix_linear}, which corresponds to a line of width 2. Black circles indicate guide robots which continuously transmit their $Index$, whereas grey circles indicate the oncoming builder robot. Shaded circle corresponds to a builder transforming into a guide. A builder is always in listener mode, whereas a guide is always in speaker mode of communication. Dotted lines trace the path of builder.
+
+When first builder initialized with $Index=3$ starts its journey, as shown in Figure \ref{fig:shape_formation_process_1}, it never faces a situation which requires $Index$ update and hence, it ultimately reaches the desired location corresponding to $Index$ 3 and transforms into a guide robot. 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{"images/shape_formation_process_1"}
     \caption{First builder taking its position}
     \label{fig:shape_formation_process_1}
 \end{figure}
-When second builder arrives with initialzed $Index$ 3, it continues on its journey to occupy the desired location coresponding to $Index$ 3, but when it comes in communication range of robot indexed 3, it realizes that it needs to update its $Index$ to 4. Following which, it travels to the desired location corresponding to $Index$ 4.
+When second builder arrives with $Index=3$, as shown in Figure \ref{fig:shape_formation_process_2}, it continues on its journey to occupy the desired location coresponding to $Index$ 3, but when it comes in the communication range of new guide with $Index=3$, it realizes that it needs to update its $Index$ to 4. Following which, it travels to the desired location corresponding to $Index=4$ and transforms into a guide.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{"images/shape_formation_process_2"}
@@ -214,7 +216,7 @@ When second builder arrives with initialzed $Index$ 3, it continues on its journ
 \lstinputlisting{code/shape_formation.c}
 
 \section{Demonstration}
-Figure \ref{fig:shape_formation_demo} provides the link to video of shape formation in action. Shape matrix \eqref{eq:shape_matrix_linear} was fed to each builder robots to form a rectangle  breadth=2 and length=3.
+Figure \ref{fig:shape_formation_demo} provides the link to video of shape formation in action. Shape matrix \eqref{eq:shape_matrix_linear} was fed to each builder robots to form a rectangle  breadth=2 and length=3. $EPSILON\_MARGIN$ and $MOTOR\_ON\_DURATION$ play an essential role in determining the stability and accuracy of shape formation. For large $MOTOR\_ON\_DURATION$, it is likely for builder to go beyond its desired location and continue orbiting whereas for larger $EPSILON\_MARGIN$, we get distortion in shape. Moreover, we can not choose very small $EPSILON\_MARGIN$ due to error in measurements. One way to improve accuracy of shape is by adaptively decreasing the $MOTOR\_ON\_DURATION$ of builder when it comes in the comunication range of desired neighbours.
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=5in]{images/shape_formation_demo}}
