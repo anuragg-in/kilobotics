@@ -32,13 +32,14 @@
 \begin{document}
 \maketitle
 \tableofcontents
+\listoffigures
 \thispagestyle{empty}
 \mbox{}
 %\input{tex/archive.tex}
 
 \chapter{Efficient star-planet orbiting using a finite state machine}
-\section{Finite state machine}
-As the name Finite State Machine (FSM) indicates, it has three different words, \textbf{Finite}, \textbf{State} and \textbf{Machine}. Finite refers to a fixed number, whereas state means the mode or position. For example, in case of a traffic light signal, we have three different states: red, yellow and green. Thus, FSM denotes a machine with fixed number of states. In their book Real-time Object-oriented Modeling, Bran Selic \& Garth Gullekson view a state machine as:
+\section{Finite state machine (FSM)}
+Before discussing FSM, let us discuss the three individual terms comprising this concept viz. finite, state and machine. Finite refers to a fixed number, whereas state means the mode or position. For example, in case of a traffic light signal, we have three different states: red, yellow and green. Thus, FSM denotes a machine with fixed number of states. \cite{LL-GM-BS-rderts} views a finite state machine as:
 \begin{itemize}
 	\item A set of input events
 	\item A set of output events
@@ -47,29 +48,28 @@ As the name Finite State Machine (FSM) indicates, it has three different words, 
 	\item A function that maps states and inputs to states
 	\item A description of the initial state
 \end{itemize}
+\noindent In our case of star-planet orbiting, we model the problem as a FSM, given its suitability to modularizing different components of algorithm. Our mechanism for orbiting is very similar to those provided at Kilobotics website, and elaborately covered in details in last lecture, although implementation using a FSM dramatically simplifies integrating macros of large size. Our main contribution in this chapter comprises of a novel and robust obstacle avoidance algorithm to prevent planet from hitting the star if it starts too close to it and also, a simple extension of existing orbiting algorithm for multiple stars setting. Both of these contributions will be dealt with extensively in coming sections. 
 
-\noindent In our case of star-planet orbiting, we modeled this problem as a FSM, which helped gain a smooth motion of planet and also improved the overall efficiency. 
-
-\section{Discussion}
-\begin{itemize}
-    \item Motor was turned on for 40ms.
-    \item Spinup motor was not used as it creates chaos.
-    \item Revolution time around 6 minutes.
-    \item Only left, right motion was used for orbiting.
-    \item Algorithm can be improved using soft delay instead of hard delay.
-    \item Algorithm for escaping $too\_close$ distance worked and then stopped working suddenly.
-    \item Use $max\_distance-min\_distance>some\_threshold$ to obtain orientation away from obstacle. This is more robust than checking for transition from increasing to decreasing distance.
-    \item Draw flowchart for the algorithm.
-    \item Motor spinup is to be used.
-    \item Too close escape worked. Oscillations due to threshold on difference to check from minimum distance ($threshold\_rotate = $). New robust algorithm was used. In worst case, it will require one complete rotation.
-    \item When only one distance was used, it created instability in tracking the desired orbit because planet makes only one reception and makes it decision entirely on that estimated distance.
-    \item Minimum of four communication distance was used. When planet is in communication range of both the robots, it makes decision quickly but when it is in communication range of only one robot, it takes longer as it takes more time to receive 4 communication from a single star than 4 communication from two star. (Motor delay = 200, No. of communications = 4, Time = 23 minutes, 9:30 p.m.).
-    \item (Motor delay = 500, No. of communications = 2, Time = 5 minutes, 9:30 p.m.). This time there is possibility of receiving communication from same star twice but that is small over successive trials.
-    \item Too close escape. (Motor delay = 500, threshold = 14, radius = 65, Time = 2 minutes, 10:23 p.m.)
-    \item Orbiting three stars (Time = 6 minutes, Communication = 4, Motor delay = 500).
-    \item Assign different data to stars.
-    \item Use float to store distance.
-\end{itemize}
+%\section{Discussion}
+%\begin{itemize}
+    %\item Motor was turned on for 40ms.
+    %\item Spinup motor was not used as it creates chaos.
+    %\item Revolution time around 6 minutes.
+    %\item Only left, right motion was used for orbiting.
+    %\item Algorithm can be improved using soft delay instead of hard delay.
+    %\item Algorithm for escaping $too\_close$ distance worked and then stopped working suddenly.
+    %\item Use $max\_distance-min\_distance>some\_threshold$ to obtain orientation away from obstacle. This is more robust than checking for transition from increasing to decreasing distance.
+    %\item Draw flowchart for the algorithm.
+    %\item Motor spinup is to be used.
+    %\item Too close escape worked. Oscillations due to threshold on difference to check from minimum distance ($threshold\_rotate = $). New robust algorithm was used. In worst case, it will require one complete rotation.
+    %\item When only one distance was used, it created instability in tracking the desired orbit because planet makes only one reception and makes it decision entirely on that estimated distance.
+    %\item Minimum of four communication distance was used. When planet is in communication range of both the robots, it makes decision quickly but when it is in communication range of only one robot, it takes longer as it takes more time to receive 4 communication from a single star than 4 communication from two star. (Motor delay = 200, No. of communications = 4, Time = 23 minutes, 9:30 p.m.).
+    %\item (Motor delay = 500, No. of communications = 2, Time = 5 minutes, 9:30 p.m.). This time there is possibility of receiving communication from same star twice but that is small over successive trials.
+    %\item Too close escape. (Motor delay = 500, threshold = 14, radius = 65, Time = 2 minutes, 10:23 p.m.)
+    %\item Orbiting three stars (Time = 6 minutes, Communication = 4, Motor delay = 500).
+    %\item Assign different data to stars.
+    %\item Use float to store distance.
+%\end{itemize}
 \section{Flowchart}
 Flowcharts ADD HERE.
 
@@ -141,7 +141,7 @@ Figure \ref{fig:orbit_three_stars} provides link to the demo of algorithm for pl
     \label{fig:orbit_three_stars}
 \end{figure}
 
-\chapter{Shape formation}
+\chapter{Shape formation using Kilobots}
 In this chapter, we will discuss an algorithm motivated by the work \cite{MR-AC-RN:2014} of SSL lab, Harvard University, for shape formation. Rather than implementing the entire algorithm, we will only consider a portion of it, assuming that the next robot to be placed is available near origin.
 \section{Framework}
 \begin{itemize}
