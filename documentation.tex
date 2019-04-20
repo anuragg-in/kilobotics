@@ -93,14 +93,7 @@ Figure \ref{fig:efficient_star_planet_orbiting} provides link to the demo for or
     \caption{\href{https://youtu.be/LRgOzhAJI1k}{Efficient star-planet orbiting}}
     \label{fig:efficient_star_planet_orbiting}
 \end{figure}
-
-%Figure \ref{fig:escape_too_close} provides link to the demo of algorithm for planet to go away from too close region.
-%\begin{figure}[H]
-    %\centering
-    %\fbox{\includegraphics[width=3in]{images/too_close}}
-    %\caption{\href{https://photos.app.goo.gl/no8unyVke2eyDXXT9}{Escaping too close region of star by planet (Planet: Kilobot with red LED)}}
-    %\label{fig:escape_too_close}
-%\end{figure}
+We have hard delays in our current implementation which increases the revolution time. In future, one can replace them with soft delays to alleviate the time of revolution.
 
 Figure \ref{fig:orbit_after_escape} provides link to the demo of algorithm for planet to go away from too close region using a robust algorithm followed by orbiting.
 \begin{figure}[H]
@@ -109,6 +102,7 @@ Figure \ref{fig:orbit_after_escape} provides link to the demo of algorithm for p
     \caption{\href{https://youtu.be/X6dGCLT0ho8}{Escaping too close region of star by planet followed by orbiting}}
     \label{fig:orbit_after_escape}
 \end{figure}
+It is evident from demo that there is a damped oscillation before planet starts orbiting. This can be attributed to difference in centre of rotation of kilobots for clockwise and anti-clockwise turn. If it were to rotate about its centre, the oscillations would not have been as heightened as in current scenario.
 
 Figure \ref{fig:orbit_two_star_comm1} provides link to the demo of algorithm for planet to orbit around two stars. Only single communication was used to identify minimum distance, leading to instability which can be attributed to CSMA/CD \cite{WEBOPEDIA-csma-cd} communication protocol followed by Kilobots.
 \begin{figure}[H]
