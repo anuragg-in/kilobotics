@@ -37,6 +37,19 @@
 %\input{tex/archive.tex}
 
 \chapter{Efficient star-planet orbiting using a finite state machine}
+\section{Finite state machine}
+As the name Finite State Machine (FSM) indicates, it has three different words, \textbf{Finite}, \textbf{State} and \textbf{Machine}. Finite refers to a fixed number, whereas state means the mode or position. For example, in case of a traffic light signal, we have three different states: red, yellow and green. Thus, FSM denotes a machine with fixed number of states. In their book Real-time Object-oriented Modeling, Bran Selic \& Garth Gullekson view a state machine as:
+\begin{itemize}
+	\item A set of input events
+	\item A set of output events
+	\item A set of states
+	\item A function that maps states and input to output
+	\item A function that maps states and inputs to states
+	\item A description of the initial state
+\end{itemize}
+
+\noindent In our case of star-planet orbiting, we modeled this problem as a FSM, which helped gain a smooth motion of planet and also improved the overall efficiency. 
+
 \section{Discussion}
 \begin{itemize}
     \item Motor was turned on for 40ms.
