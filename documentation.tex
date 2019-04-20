@@ -111,6 +111,23 @@ Flowchart for orbit after escape algorithm has been divided into two parts compr
 
 \lstinputlisting{code/orbit_planet_with_escape.c}
 
+\section{Description}
+
+\par In Star planet orbiting algorithm,While measuring distance between stars and planet,parameter NUMBER\_COMMUNICATION defines how many times a planet should receive distance measurements from stars once in a loop  and calculate the minimum distance out of all to identify the nearest star then considering the nearest star,planet moves.parameter message\_rx\_status is used to count measurements once in a loop.
+
+\par The parameter NUMBER\_COMMUNICATION affect speed on planet i.e If number of stars in Communication range are more then planet moves faster than only one star in communication range because it need to get NUMBER\_COMMUNICATION times of measurements receives from same star and decides the motion.
+
+Here are some observations,which affect speed by varying No. of communications
+\begin{itemize}
+    \item Motor delay = 200, No. of communications = 4, Time
+= 23 minutes
+    \item Motor delay = 500, No. of communications = 2, Time = 5 minutes
+\end{itemize}
+
+
+\par While escaping from TOO\_CLOSE,To check for orientation of planet away from star,Initially we checked the successive measurements decreasing to increasing leads sometimes to unstable later modified to check the current distance − min distance > some threshold.After modification we observed more robust than previous logic because further motion in planet should not depend on successive measurements which doesn't give the precision in distance for little motion.
+\par Worst case scenario of planet while escaping from TOO\_CLOSE is it requires one complete revolution to find the minimum distance in current distance − min distance > some threshold
+
 \section{Demonstration}
 Figure \ref{fig:efficient_star_planet_orbiting} provides link to the demo for orbiting of planet around the star given star starts near the desired distance.
 \begin{figure}[H]
