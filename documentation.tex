@@ -52,161 +52,159 @@ Before discussing FSM, let us discuss the three individual terms comprising this
 
 %\section{Discussion}
 %\begin{itemize}
-    %\item Motor was turned on for 40ms.
-    %\item Spinup motor was not used as it creates chaos.
-    %\item Revolution time around 6 minutes.
-    %\item Only left, right motion was used for orbiting.
-    %\item Algorithm can be improved using soft delay instead of hard delay.
-    %\item Algorithm for escaping $too\_close$ distance worked and then stopped working suddenly.
-    %\item Use $max\_distance-min\_distance>some\_threshold$ to obtain orientation away from obstacle. This is more robust than checking for transition from increasing to decreasing distance.
-    %\item Draw flowchart for the algorithm.
-    %\item Motor spinup is to be used.
-    %\item Too close escape worked. Oscillations due to threshold on difference to check from minimum distance ($threshold\_rotate = $). New robust algorithm was used. In worst case, it will require one complete rotation.
-    %\item When only one distance was used, it created instability in tracking the desired orbit because planet makes only one reception and makes it decision entirely on that estimated distance.
-    %\item Minimum of four communication distance was used. When planet is in communication range of both the robots, it makes decision quickly but when it is in communication range of only one robot, it takes longer as it takes more time to receive 4 communication from a single star than 4 communication from two star. (Motor delay = 200, No. of communications = 4, Time = 23 minutes, 9:30 p.m.).
-    %\item (Motor delay = 500, No. of communications = 2, Time = 5 minutes, 9:30 p.m.). This time there is possibility of receiving communication from same star twice but that is small over successive trials.
-    %\item Too close escape. (Motor delay = 500, threshold = 14, radius = 65, Time = 2 minutes, 10:23 p.m.)
-    %\item Orbiting three stars (Time = 6 minutes, Communication = 4, Motor delay = 500).
-    %\item Assign different data to stars.
-    %\item Use float to store distance.
+%\item Motor was turned on for 40ms.
+%\item Spinup motor was not used as it creates chaos.
+%\item Revolution time around 6 minutes.
+%\item Only left, right motion was used for orbiting.
+%\item Algorithm can be improved using soft delay instead of hard delay.
+%\item Algorithm for escaping $too\_close$ distance worked and then stopped working suddenly.
+%\item Use $max\_distance-min\_distance>some\_threshold$ to obtain orientation away from obstacle. This is more robust than checking for transition from increasing to decreasing distance.
+%\item Draw flowchart for the algorithm.
+%\item Motor spinup is to be used.
+%\item Too close escape worked. Oscillations due to threshold on difference to check from minimum distance ($threshold\_rotate = $). New robust algorithm was used. In worst case, it will require one complete rotation.
+%\item When only one distance was used, it created instability in tracking the desired orbit because planet makes only one reception and makes it decision entirely on that estimated distance.
+%\item Minimum of four communication distance was used. When planet is in communication range of both the robots, it makes decision quickly but when it is in communication range of only one robot, it takes longer as it takes more time to receive 4 communication from a single star than 4 communication from two star. (Motor delay = 200, No. of communications = 4, Time = 23 minutes, 9:30 p.m.).
+%\item (Motor delay = 500, No. of communications = 2, Time = 5 minutes, 9:30 p.m.). This time there is possibility of receiving communication from same star twice but that is small over successive trials.
+%\item Too close escape. (Motor delay = 500, threshold = 14, radius = 65, Time = 2 minutes, 10:23 p.m.)
+%\item Orbiting three stars (Time = 6 minutes, Communication = 4, Motor delay = 500).
+%\item Assign different data to stars.
+%\item Use float to store distance.
 %\end{itemize}
 \section{Flowchart}
 Flowchart for orbit after escape algorithm has been divided into two parts comprising of Figure \ref{fig:orbit_after_escape1} and \ref{fig:orbit_after_escape2}.
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.55]{star_planet_escape1}
-    \caption{Flowchart for orbiting after escape algorithm (Part I)}
-    \label{fig:orbit_after_escape1}
+	\centering
+	\includegraphics[scale=0.55]{star_planet_escape1}
+	\caption{Flowchart for orbiting after escape algorithm (Part I)}
+	\label{fig:orbit_after_escape1}
 \end{figure}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.55]{star_planet_escape2}
-    \caption{Flowchart for orbiting after escape algorithm (Part II)}
-    \label{fig:orbit_after_escape2}
+	\centering
+	\includegraphics[scale=0.55]{star_planet_escape2}
+	\caption{Flowchart for orbiting after escape algorithm (Part II)}
+	\label{fig:orbit_after_escape2}
 \end{figure}
 
 \section{Code}
 \lstset{
-    language=C,
-    numbers=left,
-    stepnumber=1,
-    numbersep=5pt,
-    backgroundcolor=\color{white},
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,       
-    tabsize=2,           
-    captionpos=b,                   
-    breaklines=true,               
-    breakatwhitespace=true,       
-    basicstyle=\ttfamily,
-    keywordstyle=\color{blue}\ttfamily,
-    stringstyle=\color{red}\ttfamily,
-    commentstyle=\color{ForestGreen}\ttfamily,
-    %identifierstyle=\color{Mulberry},
-    morecomment=[l][\color{BrickRed}]{\#},
-    numberstyle=\color{gray}
+	language=C,
+	numbers=left,
+	stepnumber=1,
+	numbersep=5pt,
+	backgroundcolor=\color{white},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,       
+	tabsize=2,           
+	captionpos=b,                   
+	breaklines=true,               
+	breakatwhitespace=true,       
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{ForestGreen}\ttfamily,
+	%identifierstyle=\color{Mulberry},
+	morecomment=[l][\color{BrickRed}]{\#},
+	numberstyle=\color{gray}
 }
 
 \lstinputlisting{code/orbit_planet_with_escape.c}
 
-\section{Description}
+\section{Discussion}
 
-\par In Star planet orbiting algorithm,While measuring distance between stars and planet,parameter NUMBER\_COMMUNICATION defines how many times a planet should receive distance measurements from stars once in a loop  and calculate the minimum distance out of all to identify the nearest star then considering the nearest star,planet moves.parameter message\_rx\_status is used to count measurements once in a loop.
+In star planet orbiting algorithm, while measuring distance between stars and planet, the parameter \texttt{NUMBER\_COMMUNICATION} defines how many times a planet should receive the distance measurements from the stars once in a loop. Accordingly, it (planet) calculates the minimum distance out of all the measurements to identify the nearest star. Considering the nearest star, the planet moves in an orbit. The parameter \texttt{message\_rx\_status} is used to count measurements once in a loop.\\
 
-\par The parameter NUMBER\_COMMUNICATION affect speed on planet i.e If number of stars in Communication range are more then planet moves faster than only one star in communication range because it need to get NUMBER\_COMMUNICATION times of measurements receives from same star and decides the motion.
-
-Here are some observations,which affect speed by varying No. of communications
+The parameter \texttt{NUMBER\_COMMUNICATION} affects speed of the planet. For instance, if the number of stars in communication range is more, the planet moves faster than having only one star in communication range. This is due to the fact that it needs to receive \texttt{NUMBER\_COMMUNICATION} times of measurements  from only one star and then, decides the motion. Here are two observations, which show how the revolution time is getting varied with the number of  communications:
 \begin{itemize}
-    \item Motor delay = 200, No. of communications = 4, Time
-= 23 minutes
-    \item Motor delay = 500, No. of communications = 2, Time = 5 minutes
+	\item Motor delay = 200, Number of communications = 4, Revolution time
+	      = 23 minutes
+	\item Motor delay = 500, Number of communications = 2, Revolution time = 5 minutes
 \end{itemize}
 
+While escaping from \texttt{TOO\_CLOSE}, we checked the successive distance measurements to check for the orientation of planet from star. The decreasing distance to increasing distance leads sometimes to instability. Hence, we modified our algorithm to check whether the \texttt{distance - min\_distance > THRESHOLD\_ROTATE}. Subsequently, we observed more robustness, because further motion in planet should not depend on successive measurements, as it doesn't give the precision in distance for little motion.\\
 
-\par While escaping from TOO\_CLOSE,To check for orientation of planet away from star,Initially we checked the successive measurements decreasing to increasing leads sometimes to unstable later modified to check the current distance − min distance > some threshold.After modification we observed more robust than previous logic because further motion in planet should not depend on successive measurements which doesn't give the precision in distance for little motion.
-\par Worst case scenario of planet while escaping from TOO\_CLOSE is it requires one complete revolution to find the minimum distance in current distance − min distance > some threshold
+In worst case scenario, it (planet) requires one complete revolution while escaping from \texttt{TOO\_CLOSE} to find the minimum distance in \texttt{distance - min\_distance > THRESHOLD\_ROTATE}
 
 \section{Demonstration}
 Figure \ref{fig:efficient_star_planet_orbiting} provides link to the demo for orbiting of planet around the star given star starts near the desired distance.
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=3in]{images/efficient_orbiting}}
-    \caption{\href{https://youtu.be/LRgOzhAJI1k}{Efficient star-planet orbiting}}
-    \label{fig:efficient_star_planet_orbiting}
+	\centering
+	\fbox{\includegraphics[width=3in]{images/efficient_orbiting}}
+	\caption{\href{https://youtu.be/LRgOzhAJI1k}{Efficient star-planet orbiting}}
+	\label{fig:efficient_star_planet_orbiting}
 \end{figure}
 We have hard delays in our current implementation which increases the revolution time. In future, one can replace them with soft delays to alleviate the time of revolution.
 
 Figure \ref{fig:orbit_after_escape} provides link to the demo of algorithm for planet to go away from too close region using a robust algorithm followed by orbiting.
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=3in]{images/orbit_after_escape}}
-    \caption{\href{https://youtu.be/X6dGCLT0ho8}{Escaping too close region of star by planet followed by orbiting}}
-    \label{fig:orbit_after_escape}
+	\centering
+	\fbox{\includegraphics[width=3in]{images/orbit_after_escape}}
+	\caption{\href{https://youtu.be/X6dGCLT0ho8}{Escaping too close region of star by planet followed by orbiting}}
+	\label{fig:orbit_after_escape}
 \end{figure}
 It is evident from demo that there is a damped oscillation before planet starts orbiting. This can be attributed to difference in centre of rotation of kilobots for clockwise and anti-clockwise turn. If it were to rotate about its centre, the oscillations would not have been as heightened as in current scenario.
 
 Figure \ref{fig:orbit_two_star_comm1} provides link to the demo of algorithm for planet to orbit around two stars. Only single communication was used to identify minimum distance, leading to instability which can be attributed to CSMA/CD \cite{WEBOPEDIA-csma-cd} communication protocol followed by Kilobots.
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=3in]{images/orbit_two_stars_comm_1}}
-    \caption{\href{https://youtu.be/mhW04WvGKuQ}{Orbiting of planet around two stars using single communication to estimate minimum distance leads to instability}}
-    \label{fig:orbit_two_star_comm1}
+	\centering
+	\fbox{\includegraphics[width=3in]{images/orbit_two_stars_comm_1}}
+	\caption{\href{https://youtu.be/mhW04WvGKuQ}{Orbiting of planet around two stars using single communication to estimate minimum distance leads to instability}}
+	\label{fig:orbit_two_star_comm1}
 \end{figure}
 
 Figure \ref{fig:orbit_two_star} provides link to the demo of algorithm for planet to orbit around two stars where planet uses two communications to make a descision.
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=3in]{images/orbit_two_stars}}
-    \caption{\href{https://youtu.be/EKvty2OxXxM}{Orbiting of planet around two stars using two communications to estimate minimum distance}}
-    \label{fig:orbit_two_star}
+	\centering
+	\fbox{\includegraphics[width=3in]{images/orbit_two_stars}}
+	\caption{\href{https://youtu.be/EKvty2OxXxM}{Orbiting of planet around two stars using two communications to estimate minimum distance}}
+	\label{fig:orbit_two_star}
 \end{figure}
 
 Figure \ref{fig:orbit_three_stars} provides link to the demo of algorithm for planet to orbit around three stars forming a triangle. Planet uses four communications to make a descision.
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=3in]{images/orbiting_three_stars}}
-    \caption{\href{https://youtu.be/5aZm0Os9BPc}{Orbiting of planet around three stars using four communications to estimate minimum distance}}
-    \label{fig:orbit_three_stars}
+	\centering
+	\fbox{\includegraphics[width=3in]{images/orbiting_three_stars}}
+	\caption{\href{https://youtu.be/5aZm0Os9BPc}{Orbiting of planet around three stars using four communications to estimate minimum distance}}
+	\label{fig:orbit_three_stars}
 \end{figure}
 
 \chapter{Shape formation using Kilobots}
 In this chapter, we will discuss an algorithm motivated by the work \cite{MR-AC-RN:2014} of SSL lab, Harvard University, for shape formation. Rather than implementing the entire algorithm, we will only consider a portion of it, assuming that the next robot to be placed is available near origin.
 \section{Framework}
 \begin{itemize}
-        \item Three robots (guides) are used as reference for axis orientation.
-        \item A robot (builder) participating in shape formation starts near the left of origin.
-        \item In its effort to reach the desired location, builder orbits around the partial shape using the algorithm presented in last chapter.
-        \item The builder stops orbiting when it reaches the desired location.
-        \item Builder becomes a guide, thereby, helping the next builder.
+	\item Three robots (guides) are used as reference for axis orientation.
+	\item A robot (builder) participating in shape formation starts near the left of origin.
+	\item In its effort to reach the desired location, builder orbits around the partial shape using the algorithm presented in last chapter.
+	\item The builder stops orbiting when it reaches the desired location.
+	\item Builder becomes a guide, thereby, helping the next builder.
 \end{itemize}
 To participate in shape formation, builders need to decide upon what global shape to form. This is achieved by sharing a shape matrix encapsulating the desired shape as an array of 5-tuple. The 5-tuple contains the following information necessary for establishing builders at desired location:
 \begin{align}
-\left(
-\begin{matrix}
-    Index & Neighbour_1 & Desired\ distance_1 & Neighbour_2 & Desired\ distance_2
-\end{matrix}
-\right)
+	\left(
+	\begin{matrix}
+	Index & Neighbour_1 & Desired\ distance_1 & Neighbour_2 & Desired\ distance_2 
+	\end{matrix}
+	\right)
 \end{align}
 For forming a linear shape of width 2, the shape matrix would look like
 \begin{align}
-\label{eq:shape_matrix_linear}
-\begin{bmatrix}
-    3 & 1 & 1 & 2 & 1\\
-    4 & 2 & 1 & 3 & \sqrt{2}\\
-    5 & 3 & 1 & 4 & 1\\
-    \cdots & \cdots & \cdots & \cdots & \cdots
-\end{bmatrix}
+	\label{eq:shape_matrix_linear}
+	\begin{bmatrix}
+	3      & 1      & 1      & 2      & 1        \\
+	4      & 2      & 1      & 3      & \sqrt{2} \\
+	5      & 3      & 1      & 4      & 1        \\
+	\cdots & \cdots & \cdots & \cdots & \cdots   
+	\end{bmatrix}
 \end{align}
 It is important to note that we require the shape to ensure two neighbours for each node or else builder would fail to localize correctly.
 \section{Flowchart}
 Figure \ref{fig:fc_shape_form} explains the algorithm for shape formation. Our algorithm differs from \cite{MR-AC-RN:2014} in its implementation of shape matrix, and localization to be discussed later in next section.
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.6]{images/shape_formation}
-    \caption{Flowchart for shape formation algorithm}
-    \label{fig:fc_shape_form}
+	\centering
+	\includegraphics[scale=0.6]{images/shape_formation}
+	\caption{Flowchart for shape formation algorithm}
+	\label{fig:fc_shape_form}
 \end{figure}
 
 \section{Discussion}
@@ -214,40 +212,40 @@ Figure \ref{fig:shape_formation_process_1} and \ref{fig:shape_formation_process_
 
 When first builder initialized with $Index=3$ starts its journey, as shown in Figure \ref{fig:shape_formation_process_1}, it never faces a situation which requires $Index$ update and hence, it ultimately reaches the desired location corresponding to $Index$ 3 and transforms into a guide robot. 
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.4]{"images/shape_formation_process_1"}
-    \caption{First builder taking its position}
-    \label{fig:shape_formation_process_1}
+	\centering
+	\includegraphics[scale=0.4]{"images/shape_formation_process_1"}
+	\caption{First builder taking its position}
+	\label{fig:shape_formation_process_1}
 \end{figure}
 When second builder arrives with $Index=3$, as shown in Figure \ref{fig:shape_formation_process_2}, it continues on its journey to occupy the desired location coresponding to $Index$ 3, but when it comes in the communication range of new guide with $Index=3$, it realizes that it needs to update its $Index$ to 4. Following which, it travels to the desired location corresponding to $Index=4$ and transforms into a guide.
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.4]{"images/shape_formation_process_2"}
-    \caption{Second builder taking its position}
-    \label{fig:shape_formation_process_2}
+	\centering
+	\includegraphics[scale=0.4]{"images/shape_formation_process_2"}
+	\caption{Second builder taking its position}
+	\label{fig:shape_formation_process_2}
 \end{figure}
 
 \section{Code}
 \lstset{
-    language=C,
-    numbers=left,
-    stepnumber=1,
-    numbersep=5pt,
-    backgroundcolor=\color{white},
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,       
-    tabsize=2,           
-    captionpos=b,                   
-    breaklines=true,               
-    breakatwhitespace=true,       
-    basicstyle=\ttfamily,
-    keywordstyle=\color{blue}\ttfamily,
-    stringstyle=\color{red}\ttfamily,
-    commentstyle=\color{ForestGreen}\ttfamily,
-    %identifierstyle=\color{Mulberry},
-    morecomment=[l][\color{BrickRed}]{\#},
-    numberstyle=\color{gray}
+	language=C,
+	numbers=left,
+	stepnumber=1,
+	numbersep=5pt,
+	backgroundcolor=\color{white},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,       
+	tabsize=2,           
+	captionpos=b,                   
+	breaklines=true,               
+	breakatwhitespace=true,       
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{ForestGreen}\ttfamily,
+	%identifierstyle=\color{Mulberry},
+	morecomment=[l][\color{BrickRed}]{\#},
+	numberstyle=\color{gray}
 }
 
 \lstinputlisting{code/shape_formation.c}
@@ -255,10 +253,10 @@ When second builder arrives with $Index=3$, as shown in Figure \ref{fig:shape_fo
 \section{Demonstration}
 Figure \ref{fig:shape_formation_demo} provides the link to video of shape formation in action. Shape matrix \eqref{eq:shape_matrix_linear} was fed to each builder robots to form a rectangle  breadth=2 and length=3. $EPSILON\_MARGIN$ and $MOTOR\_ON\_DURATION$ play an essential role in determining the stability and accuracy of shape formation. For large $MOTOR\_ON\_DURATION$, it is likely for builder to go beyond its desired location and continue orbiting whereas for larger $EPSILON\_MARGIN$, we get distortion in shape. Moreover, we can not choose very small $EPSILON\_MARGIN$ due to error in measurements. One way to improve accuracy of shape is by adaptively decreasing the $MOTOR\_ON\_DURATION$ of builder when it comes in the comunication range of desired neighbours.
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=5in]{images/shape_formation_demo}}
-    \caption{\href{https://youtu.be/SoDq9GQvNAE}{Shape formation by kilobots (Shape: Rectangle of breadth=2 and length=3)}}
-    \label{fig:shape_formation_demo}
+	\centering
+	\fbox{\includegraphics[width=5in]{images/shape_formation_demo}}
+	\caption{\href{https://youtu.be/SoDq9GQvNAE}{Shape formation by kilobots (Shape: Rectangle of breadth=2 and length=3)}}
+	\label{fig:shape_formation_demo}
 \end{figure}
 
 \chapter{Conclusion}
