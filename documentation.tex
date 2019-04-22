@@ -96,31 +96,7 @@ The parameter \texttt{NUMBER\_COMMUNICATION} affects speed of the planet. For in
 \end{itemize}
 
 While escaping from \texttt{TOO\_CLOSE} region, we compare the successive distance measurements to check for the orientation of planet from star. In our early version of algorithm, we tried to detect transition of \texttt{distance} from increasing to decreasing state as the instant when planet is oriented away from star but becase of uncertainity in measurements, this led to unwanted behaviour. Hence, we decided to keep track of \texttt{minimum\_distance} from star and check for the condition \texttt{distance - min\_distance > THRESHOLD\_ROTATE} to hold. By appropriately choosing the parameter \texttt{THRESHOLD\_ROTATE}, we managed to get the final orientation of planet away from direction of star. Moreover, the modified algorithm sans over-dependence on accuracy of a single measurement, leading to filter like behaviour and an eventual robustness of solution.\\
-It is worth mentioning that the robustness comes at an additional cost, which is, in worst case scenario, planet would require one complete revolution before being able to escape from \texttt{TOO\_CLOSE} region of star. 
-\section{Code}
-\lstset{
-	language=C,
-	numbers=left,
-	stepnumber=1,
-	numbersep=5pt,
-	backgroundcolor=\color{white},
-	showspaces=false,
-	showstringspaces=false,
-	showtabs=false,       
-	tabsize=2,           
-	captionpos=b,                   
-	breaklines=true,               
-	breakatwhitespace=true,       
-	basicstyle=\ttfamily,
-	keywordstyle=\color{blue}\ttfamily,
-	stringstyle=\color{red}\ttfamily,
-	commentstyle=\color{ForestGreen}\ttfamily,
-	%identifierstyle=\color{Mulberry},
-	morecomment=[l][\color{BrickRed}]{\#},
-	numberstyle=\color{gray}
-}
-
-\lstinputlisting{code/orbit_planet_with_escape.c}
+It is worth mentioning that the robustness comes at an additional cost, which is, in worst case scenario, planet would require one complete revolution before being able to escape from \texttt{TOO\_CLOSE} region of star. For more detailed understanding of algorithm, readers are referred to code in Appendix \ref{c_orbit}.
 
 
 \section{Demonstration}
@@ -222,7 +198,54 @@ When second builder arrives with \texttt{Index=3}, as n in Figure \ref{fig:shape
 	\label{fig:shape_formation_process_2}
 \end{figure}
 
-\section{Code}
+\section{Demonstration}
+\texttt{EPSILON\_MARGIN} and \texttt{MOTOR\_ON\_DURATION} plays an essential role in determining the stability and accuracy of shape formation. For large \texttt{MOTOR\_ON\_DURATION}, it is likely for builder to go beyond its desired location and continue orbiting whereas for larger \texttt{EPSILON\_MARGIN}, we get distortion in shape. Moreover, we can not choose very small \texttt{EPSILON\_MARGIN} due to error in measurements. One way to improve accuracy of shape is by adaptively decreasing the \texttt{MOTOR\_ON\_DURATION} of builder when it comes in the comunication range of desired neighbours. The two parameters discussed are borrowed from previous chapter. For detailed understanding of these parameters, readers are motivated to go through code in Appendix \ref{c_shape_form}\\
+Figure \ref{fig:shape_formation_demo} provides the link to video of shape formation in action. Shape matrix \eqref{eq:shape_matrix_linear} was fed to each builder robots to form a rectangle  breadth=2 and length=3. Values for \texttt{EPSILON\_MARGIN} and \texttt{MOTOR\_ON\_DURATION} were assigned to 5 and 500 respectively. For abovementioned values of parameters, the desired shape formation took place in roughly 10 minutes with observable distortions in shape. As the shape becomes larger and larger, accumulations of these errors could prevent a builder from localization, given our naive implementation of the algorithm. We also experimented with smaller values of \texttt{EPSILON\_MARGIN}, namely 2, but because of measurement noise, builders failed to establish themselves at desired location with large probability and continued orbiting around guides. Same observations were made for large values of \texttt{MOTOR\_ON\_DURATION}, namely 1000, as we had implemented hard delays. Although, larger values decreased the time to reach near the desired region, builders failed to localize within desired error margin. This could be attributed to large displacement being made before every localization step.
+\begin{figure}[H]
+	\centering
+	\fbox{\includegraphics[width=4.5in]{images/shape_formation_demo}}
+	\caption{\href{https://youtu.be/SoDq9GQvNAE}{Shape formation by kilobots (Shape: Rectangle of breadth=2 and length=3)}}
+	\label{fig:shape_formation_demo}
+\end{figure}
+Based on our discussion, inclusion of following measures would boost the performance:
+\begin{itemize}
+    \item Adaptively decreasing the \texttt{MOTOR\_ON\_DURATION} as the builder reaches closer to its target location. Doing this would significantly improve the runtime of shape formation and accuracy of localization if calibrated with proper choice of \texttt{EPSILON\_MARGIN}.
+    \item Conversion of hard delays to soft delays, thereby, decreasing the overall run time.
+    \item Use of optimization based approach for localization to incorporate uncertainity in measurements.
+\end{itemize}
+
+\chapter{Conclusion}
+During our lab work on Kilobotics, we developed essential building blocks for implementation of shape formation algorithm. In the process, we tested algorithms for efficient orbiting, algorithm for escaping an obstacle, algorithm for orbiting multiple stars, and lastly, we also implemented a rudimentary shape formation algorithm for Kilobots. There's a lot which needs to be achieved in terms of robustness in performance and integration of individual building blocks. Further, one may also pursue development of macros to generate shape matrix from a bitmap image.
+\section{Acknowledgement}
+We would like to thank Tejdeep Reddy for his teaching assistance and lab staffs for maintaining a healthy number of working robots. Moreover, we would like to thank Prof. Leena Vachhani for her coursework on Automation and Feedback which motivated us to approach the problem using finite state machine. Lastly, thanks to Prof. Leena Vachhani, Prof. Arpita Sinha and Adwaith Vijayakumar for their generous coperation in preponing our presentation dates. 
+\appendix
+\chapter{Code for orbting after escape algorithm}
+\label{c_orbit}
+\lstset{
+	language=C,
+	numbers=left,
+	stepnumber=1,
+	numbersep=5pt,
+	backgroundcolor=\color{white},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,       
+	tabsize=2,           
+	captionpos=b,                   
+	breaklines=true,               
+	breakatwhitespace=true,       
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{ForestGreen}\ttfamily,
+	%identifierstyle=\color{Mulberry},
+	morecomment=[l][\color{BrickRed}]{\#},
+	numberstyle=\color{gray}
+}
+
+\lstinputlisting{code/orbit_planet_with_escape.c}
+\chapter{Code for shape formation algorithm}
+\label{c_shape_form}
 \lstset{
 	language=C,
 	numbers=left,
@@ -246,20 +269,6 @@ When second builder arrives with \texttt{Index=3}, as n in Figure \ref{fig:shape
 }
 
 \lstinputlisting{code/shape_formation.c}
-
-\section{Demonstration}
-Figure \ref{fig:shape_formation_demo} provides the link to video of shape formation in action. Shape matrix \eqref{eq:shape_matrix_linear} was fed to each builder robots to form a rectangle  breadth=2 and length=3. \texttt{EPSILON\_MARGIN} and \texttt{MOTOR\_ON\_DURATION} plays an essential role in determining the stability and accuracy of shape formation. For large \texttt{MOTOR\_ON\_DURATION}, it is likely for builder to go beyond its desired location and continue orbiting whereas for larger \texttt{EPSILON\_MARGIN}, we get distortion in shape. Moreover, we can not choose very small \texttt{EPSILON\_MARGIN} due to error in measurements. One way to improve accuracy of shape is by adaptively decreasing the \texttt{MOTOR\_ON\_DURATION} of builder when it comes in the comunication range of desired neighbours.
-\begin{figure}[H]
-	\centering
-	\fbox{\includegraphics[width=5in]{images/shape_formation_demo}}
-	\caption{\href{https://youtu.be/SoDq9GQvNAE}{Shape formation by kilobots (Shape: Rectangle of breadth=2 and length=3)}}
-	\label{fig:shape_formation_demo}
-\end{figure}
-
-\chapter{Conclusion}
-During our lab work on Kilobotics, we developed essential building blocks for implementation of shape formation algorithm. In the process, we tested algorithms for efficient orbiting, algorithm for escaping an obstacle, algorithm for orbiting multiple stars, and lastly, we also implemented a rudimentary shape formation algorithm for Kilobots. There's a lot which needs to be achieved in terms of robustness in performance and integration of individual building blocks. Further, one may also pursue development of macros to generate shape matrix from a bitmap image.
-\section{Acknowledgement}
-We would like to thank Tejdeep Reddy for his teaching assistance and lab staffs for maintaining a healthy number of working robots. Moreover, we would like to thank Prof. Leena Vachhani for her coursework on Automation and Feedback which motivated us to approach the problem using finite state machine. Lastly, thanks to Prof. Leena Vachhani, Prof. Arpita Sinha and Adwaith Vijayakumar for their generous coperation in preponing our presentation dates. 
 \bibliography{anurag}{}
 \bibliographystyle{ieeetr}
 \end{document}
