@@ -1,0 +1,103 @@
+\begin{frame}
+\only<1-2>{
+	\frametitle{Efficient orbiting using a Finite State Machine (FSM)}
+	\only<1->{
+		\textbf{Objective:} Algorithm to allow a planet to orbit n stars from any initial condition.
+	}
+	\begin{itemize}
+		\only<1->{
+			\item \textbf{Stars:} Stationary bots around which planet rotates (Black)
+			\item \textbf{Planet:} Dynamic bots rotating around stars (Gray)
+		}
+	\end{itemize}
+			\begin{columns}
+			\begin{column}{0.2\textwidth}
+				\begin{figure}
+					\centering
+					\only<1>
+					{
+					\includegraphics[scale=0.25]{star1}
+					}
+					\only<2>
+					{
+						\includegraphics[scale=0.25]{star2planet}
+					}
+					\hspace{5 cm}
+					\caption{Single star system}
+				\end{figure}
+			\end{column}
+			\begin{column}{0.33\textwidth}	
+				\begin{figure}
+					\centering
+					\only<1>
+					{
+						\includegraphics[scale=0.25]{star2}
+					}
+					\only<2>
+					{
+						\includegraphics[scale=0.25]{star2planet}
+					}
+					\hspace{5 cm}
+					\caption{Linear star system}
+				\end{figure}
+			\end{column}
+			\begin{column}{0.33\textwidth}
+				\begin{figure}
+					\centering
+					\only<1>
+					{
+						\includegraphics[scale=0.25]{star3}
+					}
+					\only<2>
+					{
+						\includegraphics[scale=0.25]{star3planet}
+					}
+					\hspace{5 cm}
+					\caption{Triangular star system}
+				\end{figure}
+		\end{column}
+	\end{columns}
+}
+\end{frame}
+\begin{frame}
+\frametitle{\small Flowchart}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{star_planet_escape1}
+	\caption{Flowchart for shape formation algorithm}
+	\label{fig:fc_shape_form}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{\small Flowchart}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.2]{star_planet_escape2}
+	\caption{Flowchart for shape formation algorithm}
+	\label{fig:fc_shape_form}
+\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{Shape formation}
+	\framesubtitle{Demonstration}
+	\begin{columns}
+	\begin{column}{0.5\textwidth}
+	\begin{figure}[H]
+		\centering
+		\fbox{\includegraphics[width=2in]{orbit_after_escape}}
+		\hspace{5cm}
+		\caption{\href{https://youtu.be/X6dGCLT0ho8}{Escaping too close region of star by planet followed by orbiting}}
+		\label{fig:shape_formation_demo}
+	\end{figure}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}[H]
+			\centering
+			\fbox{\includegraphics[width=2in]{orbiting_three_stars}}
+			\hspace{5cm}
+			\caption{\href{https://youtu.be/5aZm0Os9BPc}{Orbiting of planet around three stars using four communications to estimate minimum distance}}
+			\label{fig:shape_formation_demo}
+		\end{figure}
+	\end{column}
+	\end{columns}
+\end{frame}

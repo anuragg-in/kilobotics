@@ -10,3 +10,5 @@
 !code/
 !*.c
 !*.xml
+!presentation/
+!presentation/tex/
