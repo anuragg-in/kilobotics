@@ -276,8 +276,14 @@ The problem statement is similar to that of a line follower with just one onboar
 	\label{fig:move_towards_light_algorithm}
 \end{figure}
 On similar lines, following a light source algorithm is implemented using flowhcart illustrated in Figure \ref{fig:move_towards_light_algorithm}.
-Abovementioned algorithm will help us understand why the robot approaches the source of light in a zig zag fashion. We cannot do significant improvement in algorithm given the limitation of onboard ambient light sensor to one.
-\section{Demonstration}
+Above mentioned algorithm will help us understand why the robot approaches the source of light in a zig zag fashion. We cannot do significant improvement in algorithm given the limitation of onboard ambient light sensor to one.
+\section{Results and Demonstration}
+Following parameters were used for this algorithm for moving towards the direction of light source:
+\begin{itemize}
+\item Number of samples = 300. In order to measure ambient light, we  use the function \texttt{get\_ambientlight()} to read the current value for the sensor. When a sensor cannot return a good reading, it returns -1. In As such sensors are inherently noisy, we will write a function that ``samples" the current light level by averaging 300 sensor readings, while discarding any bad sensor readings.
+\item \texttt{THRESH\_LOW} =  300
+\item \texttt{THRESH\_HIGH} = 600
+\end{itemize}
 Video of working demo of problem statement can be accessed using link in Figure \ref{fig:move_towards_the_light}.
 \begin{figure}[H]
 	\centering
@@ -285,8 +291,7 @@ Video of working demo of problem statement can be accessed using link in Figure 
 	\caption{\href{https://www.google.com/url?sa=j&url=https\%3A\%2F\%2Fphotos.app.goo.gl\%2FnUNghDg4nJygpzUu5&uct=1551610784&usg=G0tZGJ7iMN79F5qGk1QMw5rfodM.}{Move towards the light source}}
 	\label{fig:move_towards_the_light}
 \end{figure}
-Different \texttt{THRESH\_LOW} and \texttt{THRESH\_HI} parameters were chosen to implement hysteresis behaviour, thereby, precluding jittery motion.
-
+Different \texttt{THRESH\_LOW} and \texttt{THRESH\_HIGH} parameters were chosen to implement hysteresis behaviour, thereby, precluding jittery motion. A high value of  \texttt{THRESH\_HIGH} might ensure that the Kilobot converges closer and closer to the light source. The function \texttt{get\_ambientlight()} returns a 10-bit measurement (0 to 1023). Accordingly, the value of \texttt{THRESH\_HIGH} might be set for better convergence towards light source. 
 
 \chapter{Synchronizing phase of blinking LEDs}
 \section{Introduction}
