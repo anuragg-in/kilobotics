@@ -10,7 +10,7 @@
 				\item Li-Ion 3.7V battery 
 				\item One IR transmitter-receiver pair 
 				\item One light sensor 
-				\item Two vibration motors
+				\item Two vibration motors (1 cm/sec, 45 degrees/sec)
 			\end{itemize}
 		\end{column}
 	\begin{column}{0.5\textwidth}
@@ -34,14 +34,21 @@
 				\caption{Communication between two Kilobots}
 			\end{figure}
 		\end{column}
-		
-		\begin{column}{0.45\textwidth}
+		\begin{column}{0.5\textwidth}
 			\begin{itemize}
 				\item Reflecting IR light
-				\item Communication up to 7 cm away 
+				\item Communication up to 7 cm (32kb/s) away 
 				\item Using over-head controller
 			\end{itemize}
 		\end{column}
 	\end{columns}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Wireless communication in Kilobots}
+	\begin{itemize}
+		\item Sharing of same wireless channel by all robots
+		\item CSMA-CA (Carrier Sense Multiple Access with Collision Avoidance) method 
+		\item Reduction of channel bandwidth        
+	\end{itemize}
+\end{frame}
