@@ -224,7 +224,7 @@ According to the Kilobotics website, by default every kilobot attempts to send m
 
 \chapter{Orbiting of Kilobots}
 \section{Introduction}
-Our objective is to make one Kilobot orbit a stationary Kilobot using distance estimation. We will refer to orbiting Kilobot as planet and stationary Kilobot as star. The alogrithm goes as follows:
+Our objective is to make one Kilobot orbit around another stationary Kilobot using distance estimation. We will refer to orbiting Kilobot as planet and stationary Kilobot as star. The alogrithm goes as follows:
 
 \begin{enumerate}
     \item Place star and planet under communication link distance.
@@ -242,8 +242,13 @@ Flowchart corresponding to orbiting is illustrated in Figure \ref{fig:orbit_flow
     \caption{Flowchart for orbiting of kilobot}
     \label{fig:orbit_flowchart}
 \end{figure}
-\section{Demonstration}
-Star transmits the message to planet continously while planet receives message from star and it estimates the distance between them using the strength of received signal and then accordingly it follows the algorithm.\\
+\section{Results and Demonstration}
+Star transmits the message to planet continuously while planet receives message from star and it estimates the distance between them using the strength of received signal and then accordingly it follows the algorithm. Following parameters have been used in this algorithm: 
+\begin{itemize}
+\item \texttt{DESIRED\_DISTANCE} = 60. According to the Kilobotics website, this distance of 60mm is a good compromise between the maximum communication range (110mm) and the minimum distance (33mm) when two robots are touching.
+\item \texttt{TOO\_CLOSE} = 40. If the current distance estimate to the robot is 4cm or smaller, then the robot is really ``too close" to the star. In that case, the robot should just move forward until the distance is no longer too close. This allows the planet robot to get to a reasonable distance away from the star quickly and then start the orbiting. However, if the orientation is not proper, there are chances that the planet might hit the star.  
+\end{itemize}
+
 Video of working demo of problem statement can be accessed using link in figure \ref{fig:orbit}.
 \begin{figure}[H]
 	\centering
@@ -251,7 +256,7 @@ Video of working demo of problem statement can be accessed using link in figure 
 	\caption{\href{https://photos.app.goo.gl/xPYoywncwhCk585X8}{Orbiting of Kilobot}}
 	\label{fig:orbit}
 \end{figure}
-We utilize the estimated distances of robot from the strength of received message to determine which direction to move. \\
+We utilize the estimated distances of robot from the strength of received message to determine which direction to move. Furthermore, this algorithm for orbiting of Kilobots can be extended to edge-following if there is a group of stars, then the planets can orbit that group of stars. One such scenario has been presented in the upcoming chapters, which also prevents the planet from hitting the star. \\
 
 \chapter{Moving towards the direction of light source}
 \section{Introduction}
