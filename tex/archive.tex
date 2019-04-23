@@ -314,7 +314,7 @@ actions between many entities, such as robots or sensor networks.\\
 	\label{fig:sync}
 \end{figure}
 
-\noindent For our objective, we will use a method that relies on averaging. The algorithm for Synchronizing robots is given in the flowchart (Figure \ref{fig:sync}).  Each Kilobot acts as an oscillator, flashing its LED in a fixed period \texttt{P}.  At the same time, it continually transmits a message with its current position in the clock period (i.e. a value between \texttt{0} and \texttt{P}.  In the absence of any neighbors, the Kilobot will simply blink in a fixed period, like a firefly.  If the Kilobot hears neighboring Kilobots, then it receives information about their current positions in their own periods. In order to synchronize, it collects that information and uses the average to make an adjustment to its own next flashing time. The steps can be summarized as given below: \\ 
+\noindent For our objective, we will use a method that relies on averaging. The algorithm for Synchronizing robots is given in the flowchart (Figure \ref{fig:sync}).  Each Kilobot acts as an oscillator, flashing its LED in a fixed period \texttt{P}.  At the same time, it continually transmits a message with its current position in the clock period (i.e. a value between \texttt{0} and \texttt{P}).  In the absence of any neighbors, the Kilobot will simply blink in a fixed period, like a firefly.  If the Kilobot hears neighboring Kilobots, then it receives information about their current positions in their own periods. In order to synchronize, it collects that information and uses the average to make an adjustment to its own next flashing time. The steps can be summarized as given below: \\ 
 
 \noindent \textbf{Step 1}: Create a robot oscillator that flashes every 2 seconds.
 \begin{verbatim}
@@ -342,8 +342,7 @@ message_t *message_tx() {
 }
 \end{verbatim}
 
-\noindent \textbf{Step 3}: Let the Kilobot collect the messages it hears from other neighbors. 
-By comparing the its own current clock position to that of its neighbors (i.e. the first byte of the received message), a Kilobot can tell how much it is out of sync with its neighbors. Each time a new message arrives, the Kilobot will store the value of the adjustment to be made. Then, when the Kilobot completes its own time period and flashes, it will also make one big adjustment for next time's flash.
+\noindent \textbf{Step 3}: Let the Kilobot collect the messages it hears from other neighbors. By comparing the its own current clock position to that of its neighbors (i.e. the first byte of the received message), a Kilobot can tell how much it is out of sync with its neighbors. Each time a new message arrives, the Kilobot will store the value of the adjustment to be made. Then, when the Kilobot completes its own time period and flashes, it will also make one big adjustment for next time's flash.
 
 \begin{verbatim}
 void message_rx(message_t *m, distance_measurement_t *d)
@@ -356,8 +355,13 @@ void message_rx(message_t *m, distance_measurement_t *d)
     reset_time_adjustment = reset_time_adjustment + 	rx_reset_time_adjustment;
 }
 \end{verbatim}
-
-\section{Demonstration}
+\newpage
+\section{Results and Demonstration}
+Following parameters were used for this algorithm for synchronizing phase:
+\begin{itemize}
+\item \texttt{Period} = 50. We use the robot's own clock to check time, by reading the variable \texttt{kilo\_ticks}. One tick is equivalent to roughly 30 ms, or equivalently there are approximatly 32 clock ticks every second.
+\item \texttt{RESET\_TIME\_ADJUSTMENT\_DIVIDER} = 120. It affects the size of the reset time adjustment for every discrepancy with a neighbor. A larger value means smaller adjustments. Hence, this value should increase with the average number of neighbors each robot has.
+\end{itemize}
 Video of working demo of problem statement can be accessed using link in Figure \ref{fig:sync_lights}.
 \begin{figure}[H]
 	\centering
