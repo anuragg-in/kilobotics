@@ -1,5 +1,6 @@
 \documentclass{beamer}
 \usepackage{color} 
+\usepackage[backend=biber,sorting=none]{biblatex}
 \setbeamercolor{title}{fg=white,bg=black}
 \setbeamercolor{frametitle}{fg=white,bg=black}
 \setbeamercolor{theorem title}{fg=black}
@@ -33,13 +34,9 @@
 	\kern1.5ex\inserttocsubsection\par}
 \setbeamertemplate{sections/subsections in toc}[square unnumbered] 
 \usepackage{hyperref}
-\hypersetup{
-	colorlinks=true, 
-	linktoc=all,     
-	linkcolor=black,  
-	allcolors=black
-}
+
 \graphicspath{ {../images/} }
+\addbibresource{../anurag.bib}
 \title[Seminar presentation] %optional
 {Shape formation using Kilobots}
 \subtitle{A finite state machine approach}
@@ -75,8 +72,21 @@
 \tableofcontents
 \end{frame}
 \input{tex/about_kilobot.tex}
-\input{tex/pre_midsem.tex}
+\input{tex/summary_first_half.tex}
 \input{tex/orbit_escape.tex}
 \input{tex/shape_formation.tex}
+
+\begin{frame}
+\frametitle{Conclusion}
+\begin{itemize}
+	\item Integration of individual building blocks.
+	\item Implementation of robust localization mechanism.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Reference}
+\AtNextBibliography{\small}
+\printbibliography
+\end{frame}
 
 \end{document}
