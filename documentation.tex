@@ -48,7 +48,7 @@ Before discussing FSM, let us discuss the three individual terms comprising this
 	\item A function that maps states and inputs to states
 	\item A description of the initial state
 \end{itemize}
-\noindent In our case of star-planet orbiting, we model the problem as a FSM, given its suitability to modularizing different components of algorithm. Our mechanism for orbiting is very similar to those provided at Kilobotics website, and elaborately covered in details in last lecture, although implementation using a FSM dramatically simplifies integrating macros of large size. Our main contribution in this chapter comprises of a novel and robust obstacle avoidance algorithm to prevent planet from hitting the star if it starts too close to it and also, a simple extension of existing orbiting algorithm for multiple stars setting. Both of these contributions will be dealt with extensively in coming sections. 
+\noindent In our case of star-planet orbiting, we model the problem as a FSM, given its suitability to modularizing different components of algorithm. Our mechanism for orbiting is very similar to those provided at Kilobotics website, and elaborately covered in details in previous chapters, although implementation using a FSM dramatically simplifies integrating macros of large size. Our main contribution in this chapter comprises of a novel and robust obstacle avoidance algorithm to prevent planet from hitting the star if it starts too close to it and also, a simple extension of existing orbiting algorithm for multiple stars setting. Both of these contributions will be dealt with extensively in coming sections. 
 
 %\section{Discussion}
 %\begin{itemize}
@@ -99,26 +99,26 @@ While escaping from \texttt{TOO\_CLOSE} region, we compare the successive distan
 It is worth mentioning that the robustness comes at an additional cost, which is, in worst case scenario, planet would require one complete revolution before being able to escape from \texttt{TOO\_CLOSE} region of star. For more detailed understanding of algorithm, readers are referred to code in Appendix \ref{c_orbit}.
 
 
-\section{Demonstration}
-Figure \ref{fig:efficient_star_planet_orbiting} provides link to the demo for orbiting of planet around the star given star starts near the desired distance.
+\section{Results and Demonstration}
+The caption of figure \ref{fig:efficient_star_planet_orbiting} provides link to the demonstration for orbiting of planet around the star, given star starts near the desired distance.
 \begin{figure}[H]
 	\centering
-	\fbox{\includegraphics[width=2.7in]{images/efficient_orbiting}}
+	\fbox{\includegraphics[width=2.5in]{images/efficient_orbiting}}
 	\caption{\href{https://youtu.be/LRgOzhAJI1k}{Efficient star-planet orbiting}}
 	\label{fig:efficient_star_planet_orbiting}
 \end{figure}
 We have hard delays in our current implementation which increases the revolution time. In future, one can replace them with soft delays to alleviate the time of revolution.
 
-Figure \ref{fig:orbit_after_escape} provides link to the demo of algorithm for planet to go away from too close region using a robust algorithm followed by orbiting.
+The caption of figure \ref{fig:orbit_after_escape} provides link to the demonstration of algorithm for planet to go away from too close region, which involves using a robust algorithm followed by orbiting.
 \begin{figure}[H]
 	\centering
 	\fbox{\includegraphics[width=2.7in]{images/orbit_after_escape}}
 	\caption{\href{https://youtu.be/X6dGCLT0ho8}{Escaping too close region of star by planet followed by orbiting}}
 	\label{fig:orbit_after_escape}
 \end{figure}
-It is evident from demo that there is a damped oscillation before planet starts orbiting. This can be attributed to difference in centre of rotation of kilobots for clockwise and anti-clockwise turn. If it were to rotate about its centre, the oscillations would not have been as heightened as in current scenario.
+It is evident from the demonstration that there is a damped oscillation before planet starts orbiting. This can be attributed to difference in centre of rotation of kilobots for clockwise and anti-clockwise turn. If it were to rotate about its centre, the oscillations would not have been as heightened as in current scenario.
 
-Figure \ref{fig:orbit_two_star_comm1} provides link to the demo of algorithm for planet to orbit around two stars. Only single communication was used to identify minimum distance, leading to instability which can be attributed to CSMA/CD \cite{WEBOPEDIA-csma-cd} communication protocol followed by Kilobots.
+The caption of figure \ref{fig:orbit_two_star_comm1} provides link to the demonstration of algorithm for planet to orbit around two stars. In this case, only one communication was used to identify minimum distance, leading to instability which can be attributed to CSMA/CD \cite{WEBOPEDIA-csma-cd} communication protocol followed by Kilobots.
 \begin{figure}[H]
 	\centering
 	\fbox{\includegraphics[width=2.7in]{images/orbit_two_stars_comm_1}}
@@ -126,7 +126,7 @@ Figure \ref{fig:orbit_two_star_comm1} provides link to the demo of algorithm for
 	\label{fig:orbit_two_star_comm1}
 \end{figure}
 
-Figure \ref{fig:orbit_two_star} provides link to the demo of algorithm for planet to orbit around two stars where planet uses two communications to make a descision.
+The caption of figure \ref{fig:orbit_two_star} provides link to the demonstration of algorithm for planet to orbit around two stars where planet uses two communications to make a descision (estimating the minimum distance).
 \begin{figure}[H]
 	\centering
 	\fbox{\includegraphics[width=2.7in]{images/orbit_two_stars}}
@@ -134,13 +134,17 @@ Figure \ref{fig:orbit_two_star} provides link to the demo of algorithm for plane
 	\label{fig:orbit_two_star}
 \end{figure}
 
-Figure \ref{fig:orbit_three_stars} provides link to the demo of algorithm for planet to orbit around three stars forming a triangle. Planet uses four communications to make a descision.
+The caption of figure \ref{fig:orbit_three_stars} provides link to the demonstration of algorithm for planet to orbit around three stars forming a triangle. In this case, planet uses four communications to make a decision. Though these four communications stabilize the movement of planet, it also increases  the total revolution time. 
 \begin{figure}[H]
 	\centering
 	\fbox{\includegraphics[width=2.7in]{images/orbiting_three_stars}}
 	\caption{\href{https://youtu.be/5aZm0Os9BPc}{Orbiting of planet around three stars using four communications to estimate minimum distance}}
 	\label{fig:orbit_three_stars}
 \end{figure}
+
+\section{Conclusion}
+We implemented a robust algorithm for star-planet orbiting by using the concepts of FSM. This algorithm was able to prevent planet from hitting the star, even if the planet starts in the very close region of the star. Also, we observed that the movement of a planet can be stabilized by increasing the number of communications from the star. However, it will also increase the total revolution time. Also, the orientation of planets and star played a significant role. If the orientation of the planet is away from that of a star, it might take an additional turn before it begins orbiting.  
+
 
 \chapter{Shape formation using Kilobots}
 In this chapter, we will discuss an algorithm motivated by the work \cite{MR-AC-RN:2014} of SSL lab, Harvard University, for shape formation. Rather than implementing the entire algorithm, we will only consider a portion of it, assuming that the next robot to be placed is available near origin.
@@ -209,9 +213,9 @@ Figure \ref{fig:shape_formation_demo} provides the link to video of shape format
 \end{figure}
 Based on our discussion, inclusion of following measures would boost the performance:
 \begin{itemize}
-    \item Adaptively decreasing the \texttt{MOTOR\_ON\_DURATION} as the builder reaches closer to its target location. Doing this would significantly improve the runtime of shape formation and accuracy of localization if calibrated with proper choice of \texttt{EPSILON\_MARGIN}.
-    \item Conversion of hard delays to soft delays, thereby, decreasing the overall run time.
-    \item Use of optimization based approach for localization to incorporate uncertainity in measurements.
+	\item Adaptively decreasing the \texttt{MOTOR\_ON\_DURATION} as the builder reaches closer to its target location. Doing this would significantly improve the runtime of shape formation and accuracy of localization if calibrated with proper choice of \texttt{EPSILON\_MARGIN}.
+	\item Conversion of hard delays to soft delays, thereby, decreasing the overall run time.
+	\item Use of optimization based approach for localization to incorporate uncertainity in measurements.
 \end{itemize}
 
 \chapter{Conclusion}
@@ -219,7 +223,7 @@ During our lab work on Kilobotics, we developed essential building blocks for im
 \section{Acknowledgement}
 We would like to thank Tejdeep Reddy for his teaching assistance and lab staffs for maintaining a healthy number of working robots. Moreover, we would like to thank Prof. Leena Vachhani for her coursework on Automation and Feedback which motivated us to approach the problem using finite state machine. Lastly, thanks to Prof. Leena Vachhani, Prof. Arpita Sinha and Adwaith Vijayakumar for their generous coperation in preponing our presentation dates. 
 \appendix
-\chapter{Code for orbting after escape algorithm}
+\chapter{Code for orbiting after escape algorithm}
 \label{c_orbit}
 \lstset{
 	language=C,

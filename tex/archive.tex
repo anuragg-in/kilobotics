@@ -212,18 +212,19 @@ int main() {
     return 0;
 }
 \end{verbatim}
-\section{Demonstration}
-Video of working demo of problem statement can be accessed using link in figure \ref{fig:communication}.
+\section{Results and Demonstration}
+For this task of establishing communication between two Kilobots, the communication protocol CSMA/CD has been followed. Thus, the speaker Kilobot will first sense and then transmit. Video of working demonstration of problem statement can be accessed using link in the caption of figure \ref{fig:communication}.
 \begin{figure}[H]
 	\centering
 	\fbox{\includegraphics[scale=0.2]{images/communication}}
 	\caption{\href{https://photos.app.goo.gl/h2jCY1WrUYU9xLqG8}{Communication between two Kilobots}}
 	\label{fig:communication}
 \end{figure}
+According to the Kilobotics website, by default every kilobot attempts to send message twice per second. It can also be verified by looking at the LED blinking rate of speaker. 
 
 \chapter{Orbiting of Kilobots}
 \section{Introduction}
-Our objective is to make one Kilobot orbit a stationary Kilobot using distance estimation. We will refer to orbiting Kilobot as planet and stationary Kilobot as star. The alogrithm goes as follows:
+Our objective is to make one Kilobot orbit around another stationary Kilobot using distance estimation. We will refer to orbiting Kilobot as planet and stationary Kilobot as star. The alogrithm goes as follows:
 
 \begin{enumerate}
     \item Place star and planet under communication link distance.
@@ -241,8 +242,13 @@ Flowchart corresponding to orbiting is illustrated in Figure \ref{fig:orbit_flow
     \caption{Flowchart for orbiting of kilobot}
     \label{fig:orbit_flowchart}
 \end{figure}
-\section{Demonstration}
-Star transmits the message to planet continously while planet receives message from star and it estimates the distance between them using the strength of received signal and then accordingly it follows the algorithm.\\
+\section{Results and Demonstration}
+Star transmits the message to planet continuously while planet receives message from star and it estimates the distance between them using the strength of received signal and then accordingly it follows the algorithm. Following parameters have been used in this algorithm: 
+\begin{itemize}
+\item \texttt{DESIRED\_DISTANCE} = 60. According to the Kilobotics website, this distance of 60mm is a good compromise between the maximum communication range (110mm) and the minimum distance (33mm) when two robots are touching.
+\item \texttt{TOO\_CLOSE} = 40. If the current distance estimate to the robot is 4cm or smaller, then the robot is really ``too close" to the star. In that case, the robot should just move forward until the distance is no longer too close. This allows the planet robot to get to a reasonable distance away from the star quickly and then start the orbiting. However, if the orientation is not proper, there are chances that the planet might hit the star.  
+\end{itemize}
+
 Video of working demo of problem statement can be accessed using link in figure \ref{fig:orbit}.
 \begin{figure}[H]
 	\centering
@@ -250,7 +256,7 @@ Video of working demo of problem statement can be accessed using link in figure 
 	\caption{\href{https://photos.app.goo.gl/xPYoywncwhCk585X8}{Orbiting of Kilobot}}
 	\label{fig:orbit}
 \end{figure}
-We utilize the estimated distances of robot from the strength of received message to determine which direction to move. \\
+We utilize the estimated distances of robot from the strength of received message to determine which direction to move. Furthermore, this algorithm for orbiting of Kilobots can be extended to edge-following if there is a group of stars, then the planets can orbit that group of stars. One such scenario has been presented in the upcoming chapters, which also prevents the planet from hitting the star. \\
 
 \chapter{Moving towards the direction of light source}
 \section{Introduction}
@@ -270,8 +276,14 @@ The problem statement is similar to that of a line follower with just one onboar
 	\label{fig:move_towards_light_algorithm}
 \end{figure}
 On similar lines, following a light source algorithm is implemented using flowhcart illustrated in Figure \ref{fig:move_towards_light_algorithm}.
-Abovementioned algorithm will help us understand why the robot approaches the source of light in a zig zag fashion. We cannot do significant improvement in algorithm given the limitation of onboard ambient light sensor to one.
-\section{Demonstration}
+Above mentioned algorithm will help us understand why the robot approaches the source of light in a zig zag fashion. We cannot do significant improvement in algorithm given the limitation of onboard ambient light sensor to one.
+\section{Results and Demonstration}
+Following parameters were used for this algorithm for moving towards the direction of light source:
+\begin{itemize}
+\item Number of samples = 300. In order to measure ambient light, we  use the function \texttt{get\_ambientlight()} to read the current value for the sensor. When a sensor cannot return a good reading, it returns -1. In As such sensors are inherently noisy, we will write a function that ``samples" the current light level by averaging 300 sensor readings, while discarding any bad sensor readings.
+\item \texttt{THRESH\_LOW} =  300
+\item \texttt{THRESH\_HIGH} = 600
+\end{itemize}
 Video of working demo of problem statement can be accessed using link in Figure \ref{fig:move_towards_the_light}.
 \begin{figure}[H]
 	\centering
@@ -279,8 +291,7 @@ Video of working demo of problem statement can be accessed using link in Figure 
 	\caption{\href{https://www.google.com/url?sa=j&url=https\%3A\%2F\%2Fphotos.app.goo.gl\%2FnUNghDg4nJygpzUu5&uct=1551610784&usg=G0tZGJ7iMN79F5qGk1QMw5rfodM.}{Move towards the light source}}
 	\label{fig:move_towards_the_light}
 \end{figure}
-Different \texttt{THRESH\_LOW} and \texttt{THRESH\_HI} parameters were chosen to implement hysteresis behaviour, thereby, precluding jittery motion.
-
+Different \texttt{THRESH\_LOW} and \texttt{THRESH\_HIGH} parameters were chosen to implement hysteresis behaviour, thereby, precluding jittery motion. A high value of  \texttt{THRESH\_HIGH} might ensure that the Kilobot converges closer and closer to the light source. The function \texttt{get\_ambientlight()} returns a 10-bit measurement (0 to 1023). Accordingly, the value of \texttt{THRESH\_HIGH} might be set for better convergence towards light source. 
 
 \chapter{Synchronizing phase of blinking LEDs}
 \section{Introduction}
@@ -303,7 +314,7 @@ actions between many entities, such as robots or sensor networks.\\
 	\label{fig:sync}
 \end{figure}
 
-\noindent For our objective, we will use a method that relies on averaging. The algorithm for Synchronizing robots is given in the flowchart (Figure \ref{fig:sync}).  Each Kilobot acts as an oscillator, flashing its LED in a fixed period \texttt{P}.  At the same time, it continually transmits a message with its current position in the clock period (i.e. a value between \texttt{0} and \texttt{P}.  In the absence of any neighbors, the Kilobot will simply blink in a fixed period, like a firefly.  If the Kilobot hears neighboring Kilobots, then it receives information about their current positions in their own periods. In order to synchronize, it collects that information and uses the average to make an adjustment to its own next flashing time. The steps can be summarized as given below: \\ 
+\noindent For our objective, we will use a method that relies on averaging. The algorithm for Synchronizing robots is given in the flowchart (Figure \ref{fig:sync}).  Each Kilobot acts as an oscillator, flashing its LED in a fixed period \texttt{P}.  At the same time, it continually transmits a message with its current position in the clock period (i.e. a value between \texttt{0} and \texttt{P}).  In the absence of any neighbors, the Kilobot will simply blink in a fixed period, like a firefly.  If the Kilobot hears neighboring Kilobots, then it receives information about their current positions in their own periods. In order to synchronize, it collects that information and uses the average to make an adjustment to its own next flashing time. The steps can be summarized as given below: \\ 
 
 \noindent \textbf{Step 1}: Create a robot oscillator that flashes every 2 seconds.
 \begin{verbatim}
@@ -331,8 +342,7 @@ message_t *message_tx() {
 }
 \end{verbatim}
 
-\noindent \textbf{Step 3}: Let the Kilobot collect the messages it hears from other neighbors. 
-By comparing the its own current clock position to that of its neighbors (i.e. the first byte of the received message), a Kilobot can tell how much it is out of sync with its neighbors. Each time a new message arrives, the Kilobot will store the value of the adjustment to be made. Then, when the Kilobot completes its own time period and flashes, it will also make one big adjustment for next time's flash.
+\noindent \textbf{Step 3}: Let the Kilobot collect the messages it hears from other neighbors. By comparing the its own current clock position to that of its neighbors (i.e. the first byte of the received message), a Kilobot can tell how much it is out of sync with its neighbors. Each time a new message arrives, the Kilobot will store the value of the adjustment to be made. Then, when the Kilobot completes its own time period and flashes, it will also make one big adjustment for next time's flash.
 
 \begin{verbatim}
 void message_rx(message_t *m, distance_measurement_t *d)
@@ -345,8 +355,13 @@ void message_rx(message_t *m, distance_measurement_t *d)
     reset_time_adjustment = reset_time_adjustment + 	rx_reset_time_adjustment;
 }
 \end{verbatim}
-
-\section{Demonstration}
+\newpage
+\section{Results and Demonstration}
+Following parameters were used for this algorithm for synchronizing phase:
+\begin{itemize}
+\item \texttt{Period} = 50. We use the robot's own clock to check time, by reading the variable \texttt{kilo\_ticks}. One tick is equivalent to roughly 30 ms, or equivalently there are approximatly 32 clock ticks every second.
+\item \texttt{RESET\_TIME\_ADJUSTMENT\_DIVIDER} = 120. It affects the size of the reset time adjustment for every discrepancy with a neighbor. A larger value means smaller adjustments. Hence, this value should increase with the average number of neighbors each robot has.
+\end{itemize}
 Video of working demo of problem statement can be accessed using link in Figure \ref{fig:sync_lights}.
 \begin{figure}[H]
 	\centering
