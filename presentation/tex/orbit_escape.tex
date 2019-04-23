@@ -1,3 +1,5 @@
+\section{Star planet orbiting}
+\subsection{Orbiting}
 \begin{frame}
 \only<1-2>{
 	\frametitle{Efficient orbiting using a Finite State Machine (FSM)}
@@ -22,9 +24,9 @@
 					}
 					\only<2>
 					{
-						\includegraphics[scale=0.25]{star2planet}
+						\includegraphics[scale=0.25]{star1planet}
 					}
-					\hspace{5 cm}
+					\vspace{0.4cm}
 					\caption{Single star system}
 				\end{figure}
 			\end{column}
@@ -39,7 +41,7 @@
 					{
 						\includegraphics[scale=0.25]{star2planet}
 					}
-					\hspace{5 cm}
+					\vspace{0.4 cm}
 					\caption{Linear star system}
 				\end{figure}
 			\end{column}
@@ -66,7 +68,7 @@
 \frametitle{Flowchart}
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.24]{star_planet_escape_compressed_1}
+	\includegraphics[scale=0.27]{star_planet_escape_compressed_1}
 \end{figure}
 \end{frame}
 
@@ -83,6 +85,7 @@
 	\end{figure}
 \end{frame}
 
+\subsection{Escaping the close region}
 \begin{frame}
 \frametitle{Escaping the close region}
 \textbf{Objective:} Designing a robust algorithm to reach the desired orbit distance without hitting the star.
@@ -121,7 +124,7 @@
 \begin{figure}[H]
 	\begin{center}
 	\fbox{\includegraphics[width=2in]{orbit_after_escape}}\\
-	\hspace{5cm}
+	\vspace{0.4cm}
 	\caption{\href{https://youtu.be/X6dGCLT0ho8}{Escaping too close region of star by planet followed by orbiting}}
 	\label{fig:shape_formation_demo}
 	\end{center}

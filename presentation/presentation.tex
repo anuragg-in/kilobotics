@@ -1,6 +1,37 @@
 \documentclass{beamer}
 \usepackage{color} 
-\usepackage{}  
+\setbeamercolor{title}{fg=white,bg=black}
+\setbeamercolor{frametitle}{fg=white,bg=black}
+\setbeamercolor{theorem title}{fg=black}
+\setbeamercolor{block title}{fg=white,bg=black}
+\setbeamercolor{block body}{fg=black,bg=black!7}
+\setbeamercolor{caption name}{fg=black}
+\setbeamercolor{itemize item}{fg=black}
+\setbeamercolor{BoxColour}{fg=white,bg=black}
+\setbeamerfont{caption name}{series=\bfseries}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+\setbeamertemplate{caption}[numbered]
+\setbeamercolor{footline}{fg=gray}
+\setbeamertemplate{footline}{\hfill}
+\setbeamertemplate{frametitle continuation}[from second][(contd.)]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{beamercolorbox}[rounded]
+\setbeamercolor{section in toc}{fg=black}
+\setbeamerfont{section in toc}{size=\large}
+\setbeamercolor{subsection in toc}{fg=black}
+\setbeamerfont{subsection in toc}{size=\small}
+\defbeamertemplate{section in toc}{square unnumbered}{%
+	\leavevmode\leftskip=1.75ex%
+	\llap{\textcolor{black}{\vrule width9pt
+			height9pt depth0pt}}%
+	\kern1.5ex\inserttocsection\par}
+\defbeamertemplate{subsection in toc}{square unnumbered}{%
+	\leavevmode\leftskip=5ex%
+	\llap{\textcolor{black}{\vrule width5pt
+			height5pt depth0pt}}%
+	\kern1.5ex\inserttocsubsection\par}
+\setbeamertemplate{sections/subsections in toc}[square unnumbered] 
 \usepackage{hyperref}
 \hypersetup{
 	colorlinks=true, 
@@ -40,7 +71,9 @@
 }
 
 \frame{\titlepage}
-
+\begin{frame}{Overview}
+\tableofcontents
+\end{frame}
 \input{tex/about_kilobot.tex}
 \input{tex/orbit_escape.tex}
 \input{tex/shape_formation.tex}
