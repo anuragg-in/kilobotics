@@ -7,10 +7,12 @@
 	\begin{itemize}
 		\only<1->{
 			\item \textbf{Stars:} Stationary bots around which planet rotates (Black)
+			\only<2->{
 			\item \textbf{Planet:} Dynamic bots rotating around stars (Gray)
+			}
 		}
 	\end{itemize}
-			\begin{columns}
+			\begin{columns}[b]
 			\begin{column}{0.2\textwidth}
 				\begin{figure}
 					\centering
@@ -59,45 +61,69 @@
 	\end{columns}
 }
 \end{frame}
+
 \begin{frame}
-\frametitle{\small Flowchart}
+\frametitle{Flowchart}
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.3]{star_planet_escape1}
-	\caption{Flowchart for shape formation algorithm}
-	\label{fig:fc_shape_form}
+	\includegraphics[scale=0.24]{star_planet_escape_compressed_1}
 \end{figure}
 \end{frame}
+
 \begin{frame}
-\frametitle{\small Flowchart}
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.2]{star_planet_escape2}
-	\caption{Flowchart for shape formation algorithm}
-	\label{fig:fc_shape_form}
-\end{figure}
-\end{frame}
-\begin{frame}
-	\frametitle{Shape formation}
-	\framesubtitle{Demonstration}
-	\begin{columns}
-	\begin{column}{0.5\textwidth}
+\frametitle{Efficient orbiting using FSM}
+\framesubtitle{Demonstration}
 	\begin{figure}[H]
-		\centering
-		\fbox{\includegraphics[width=2in]{orbit_after_escape}}
+		\begin{center}
+		\fbox{\includegraphics[width=2in]{efficient_orbiting}}\\
 		\hspace{5cm}
-		\caption{\href{https://youtu.be/X6dGCLT0ho8}{Escaping too close region of star by planet followed by orbiting}}
+		\caption{\href{https://youtu.be/LRgOzhAJI1k}{Efficient star-planet orbiting using single communication}}
 		\label{fig:shape_formation_demo}
+	\end{center}
 	\end{figure}
-	\end{column}
+\end{frame}
+
+\begin{frame}
+\frametitle{Escaping the close region}
+\textbf{Objective:} Designing a robust algorithm to reach the desired orbit distance without hitting the star.
+\only<2->{
+\begin{columns}[b]
 	\begin{column}{0.5\textwidth}
-		\begin{figure}[H]
+		\begin{figure}
 			\centering
-			\fbox{\includegraphics[width=2in]{orbiting_three_stars}}
-			\hspace{5cm}
-			\caption{\href{https://youtu.be/5aZm0Os9BPc}{Orbiting of planet around three stars using four communications to estimate minimum distance}}
-			\label{fig:shape_formation_demo}
+			\includegraphics[scale=0.25]{star1planet_close}
+			\hspace{5 cm}
+			\caption{Planet too close to star}
 		\end{figure}
 	\end{column}
-	\end{columns}
+	\begin{column}{0.5\textwidth}	
+		\begin{figure}
+			\includegraphics[scale=0.25]{star1planet}
+			\hspace{5 cm}
+			\caption{Desired distance of orbit}
+		\end{figure}
+	\end{column}
+\end{columns}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Flowchart}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.22]{star_planet_escape_compressed_2}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Efficient orbiting using FSM}
+\framesubtitle{Demonstration}
+\begin{figure}[H]
+	\begin{center}
+	\fbox{\includegraphics[width=2in]{orbit_after_escape}}\\
+	\hspace{5cm}
+	\caption{\href{https://youtu.be/X6dGCLT0ho8}{Escaping too close region of star by planet followed by orbiting}}
+	\label{fig:shape_formation_demo}
+	\end{center}
+\end{figure}
 \end{frame}
