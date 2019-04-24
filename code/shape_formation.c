@@ -2,9 +2,9 @@
 
 //----- PARAMETERS FOR SHAPE FORMATION / COMMUNICATION ----- 
 #define DESIRED_DISTANCE 65
-#define EPSILON_MARGIN 5
+#define EPSILON_MARGIN 10
 #define MOTOR_ON_DURATION 500
-#define NUMBER_COMMUNICATION 3
+#define NUMBER_COMMUNICATION 6
 
 //----- DEFINE MOTION ----- 
 #define FORWARD 0
@@ -24,8 +24,8 @@ int state, message_rx_status, temp, index=3, check = 0, x, y, max_index=2, messa
 float distance, last_distance, min_distance;
 
 //----- ARRAYS FOR STORING NEIGHBOURS INFORMATION -----
-int reception_id[3] = {0,0,0};
-float reception_distance[3] = {0,0,0};
+int reception_id[6] = {0,0,0,0,0,0};
+float reception_distance[6] = {0,0,0,0,0,0};
 
 //----- SHAPE MATRIX -----
 int neighbours[8][2] = {{0,0},{0,0},{0,0},{1,2},{2,3},{3,4},{4,5},{5,6}};
@@ -125,6 +125,7 @@ void loop()
         case COMPARE_DESIRED_DISTANCE:
             if(message_rx_status == NUMBER_COMMUNICATION)
             {
+                check = 0;
                 for(int i=0; i<NUMBER_COMMUNICATION; i++)
                 {
                     for(int j=i+1; j<NUMBER_COMMUNICATION; j++)
@@ -143,6 +144,15 @@ void loop()
                         break;
                     }
                 }
+                
+                if(check==1)
+                {
+                    set_color(RGB(0,1,0));
+                }
+                else
+                {
+                    set_color(RGB(1,0,0));
+                }
 
                 //----- CHECK IF DESIRED NEIGHBOURS AT DESIRED DISTANCE -----
                 if((check == 1) && (reception_distance[x] > distance_multiplier[index][0] * DESIRED_DISTANCE - EPSILON_MARGIN && reception_distance[x] < distance_multiplier[index][0] * DESIRED_DISTANCE+EPSILON_MARGIN) && (reception_distance[y] > distance_multiplier[index][1] * DESIRED_DISTANCE-EPSILON_MARGIN && reception_distance[y] < distance_multiplier[index][1] * DESIRED_DISTANCE + EPSILON_MARGIN))
@@ -159,13 +169,13 @@ void loop()
             //----- ALGORITHM FOR ORBITING CLOCKWISE -----
             if(distance > DESIRED_DISTANCE)
             {
-                set_color(RGB(1,0,0));
+                //set_color(RGB(1,0,0));
                 move(RIGHT);
                 state = NEIGHBOURS_IN_RANGE;
             }
             else
             {
-                set_color(RGB(0,0,1));
+                //set_color(RGB(0,0,1));
                 move(LEFT);
                 state = NEIGHBOURS_IN_RANGE;
             }
@@ -176,7 +186,7 @@ void loop()
             }
             break;
         case FINISH:
-            set_color(RGB(0,1,0));
+            set_color(RGB(0,1,1));
             //----- START TRANSMISSION AFTER DESIRED LOCATION IS ACHIEVED -----
             message.type = NORMAL;
             message.data[0] = index;
