@@ -10,5 +10,9 @@
 !code/
 !*.c
 !*.xml
+!documentation/
+!documentation/2019/*
+!documentation/2020/*
+!documentation/*
 !presentation/
 !presentation/tex/
