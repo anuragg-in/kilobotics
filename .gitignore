@@ -11,6 +11,7 @@
 !*.c
 !*.xml
 !*.tex
+!*.pdf
 !documentation/
 !documentation/2019/
 !documentation/2020/
