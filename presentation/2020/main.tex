@@ -1,0 +1,122 @@
+\documentclass[12pt,xcolor=table]{beamer} 
+\usepackage{beamerthemesplit}
+\usepackage{beamerthemeshadow}
+
+\definecolor{blue}{rgb}{0, 0, 0.25}
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{headline}{}
+\definecolor{blue}{rgb}{0, 0, 0.25}
+\setbeamercolor{structure}{fg=blue}
+
+\usepackage{caption}
+\captionsetup{font=scriptsize,labelfont=scriptsize}
+\setbeamerfont{caption name}{series=\bfseries}
+\setbeamerfont{section in toc}{size=\large}
+\setbeamerfont{subsection in toc}{size=\small}
+\setbeamertemplate{caption}[numbered]
+
+\usepackage{verbatim}
+\newenvironment{colorverbatim}[1][]%
+{%
+\color{black}
+}%
+
+\usepackage{mathpazo,courier,euler}
+\usepackage{listings}
+
+\lstset{language=sh,
+    basicstyle=\ttfamily\bfseries,
+    showstringspaces=false,
+    keywordstyle=\color{black}\bfseries}
+
+\logo
+{
+\hspace{270pt}
+\includegraphics[scale=0.17]{images/iitb-logo.png}
+}
+
+\setbeamercolor{structure}{fg=blue}
+\setbeamercolor{alerted text}{fg=blue}
+%\beamertemplateshadingbackground{blue!20}{white!20}
+\usepackage{listings}
+\setbeamertemplate{frametitle continuation}[from second]
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[backend=biber,sorting=none]{biblatex}
+\addbibresource{mybibliography.bib}
+
+\title[Edge following using Kilobots]{Edge following using Kilobots}
+%\subtitle{A finite state machine approach}
+ 
+\author[Abhishek, Harsha Priyanka, Neelam]{Abhishek\inst{1} \and Harsha Priyanka\inst{1} \and Neelam\inst{1}}
+ 
+\institute[IIT Bombay] % (optional)
+{
+  \inst{1}%
+  M.Tech scholar\\
+  Systems and Control Engineering
+}
+
+\date[] 
+{\href{http://www.iitb.ac.in/}{Indian Institute of Technology, Bombay}\\\today}
+
+
+\begin{document}
+
+\begin{frame}
+   \titlepage
+\end{frame}
+
+\AtBeginSection[]
+{
+	\begin{frame}<beamer>
+	\frametitle{Overview}
+	\tableofcontents[currentsection]
+	\end{frame}
+}
+
+
+\begin{frame}{Overview}
+\tableofcontents
+\end{frame}
+\input{tex/about-kilobot.tex}
+\input{tex/orbiting.tex}
+\input{tex/gradient.tex}
+\input{tex/edge-following.tex}
+\input{tex/int-grad-ef.tex}
+
+\begin{frame}
+\frametitle{Conclusion}
+\textbf{Future Scope}
+\begin{itemize}
+    \item Integration of work done by two batches
+    \item Corner robot detection for a general shape
+\end{itemize}
+\vspace{0.2cm}
+\newline
+\textbf{Challenges}
+\begin{itemize}
+	\item Multiple reference kilobots
+	\item Multiple kilobots with same unique ID
+\end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Reference}
+\AtNextBibliography{\small}
+\printbibliography
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+  \textcolor{blue}{\Large THANK YOU!} 
+  \end{center}
+\end{frame}
+
+\end{document}
