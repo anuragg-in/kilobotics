@@ -5,6 +5,6 @@ Contributors:
 2019 - Anurag, Ponala Venkata Eswara Srisai, Sudhakar Kumar, Kishan Chouhan and Tejdeep Reddy (TA).
 
 Acknowledgement:
-Adwaith Vijayakumar, Kumar Khot (Lab assistant), Prof. Leena Vachhani, Prof. Arpita Sinha.
+Adwaith Vijayakumar, Kumar Khot, Prof. Leena Vachhani, Prof. Arpita Sinha.
 
 Maintained by Anurag (www.anuragg.in)
